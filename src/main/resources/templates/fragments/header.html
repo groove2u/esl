@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header class="cont_head" id="header" th:fragment="headerFragment">
+    <h1>주식회사 하엠</h1>
+    <div class="head_utils">
+        <div class="utils_greet" th:text="#{header.welcome}">
+
+        </div>
+        <div class="lang_sel">
+            <a class="btn_logout" id="btnLogout" href="javascript:;">로그아웃</a>
+        </div>
+    </div>
+    <form id="logoutForm" name="logoutForm" th:action="@{/logout}" method="post">
+    </form>
+</header>
+
+</html>

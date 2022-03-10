@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="tbl_wrap" layout:fragment="content">
+    <div class="tbl_filter_wrap">
+        <div class="right">
+            <select class="num_sel">
+                <option>20개</option>
+            </select>
+        </div>
+    </div>
+    <table>
+        <colgroup>
+            <col style="width:7%;">
+            <col style="width:5%;">
+            <col style="width:38%;">
+            <col style="width:15%;">
+            <col style="width:21%;">
+            <col style="width:14%;">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>
+                <p class="tbl_chk">
+                    <input id="chkAll" name="" type="checkbox">
+                    <label for="chkAll">전체선택</label>
+                </p>
+            </th>
+            <th>no</th>
+            <th class="ttl">분류명</th>
+            <th>사용여부</th>
+            <th>등록일</th>
+            <th>상태변경</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk1" name="" type="checkbox">
+                    <label for="chk1">선택</label>
+                </p>
+            </td>
+            <td>25</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">식품</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat yes">사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk2" name="" type="checkbox">
+                    <label for="chk2">선택</label>
+                </p>
+            </td>
+            <td>24</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">악세서리</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat no">미사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk3" name="" type="checkbox">
+                    <label for="chk3">선택</label>
+                </p>
+            </td>
+            <td>23</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">식품</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat yes">사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk4" name="" type="checkbox">
+                    <label for="chk4">선택</label>
+                </p>
+            </td>
+            <td>22</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">악세서리</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat yes">사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk5" name="" type="checkbox">
+                    <label for="chk5">선택</label>
+                </p>
+            </td>
+            <td>21</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">악세서리</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat yes">사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk6" name="" type="checkbox">
+                    <label for="chk6">선택</label>
+                </p>
+            </td>
+            <td>20</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">식품</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat yes">사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk7" name="" type="checkbox">
+                    <label for="chk7">선택</label>
+                </p>
+            </td>
+            <td>19</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">악세서리</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat no">미사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk8" name="" type="checkbox">
+                    <label for="chk8">선택</label>
+                </p>
+            </td>
+            <td>18</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">식품</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat yes">사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk9" name="" type="checkbox">
+                    <label for="chk9">선택</label>
+                </p>
+            </td>
+            <td>17</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">악세서리</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat yes">사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="tbl_chk">
+                    <input id="chk10" name="" type="checkbox">
+                    <label for="chk10">선택</label>
+                </p>
+            </td>
+            <td>16</td>
+            <td class="ttl">
+                <p class="link">
+                    <a href="javascript:;">악세서리</a>
+                </p>
+            </td>
+            <td>
+                <i class="use_stat yes">사용</i>
+            </td>
+            <td>2021.09.30</td>
+            <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- pager -->
+    <div class="tbl_bottom">
+        <a class="btn_del" href="javascript:;">삭제</a>
+        <div class="tbl_pager">
+            <a class="btn_prev" href="javascript:;">앞으로</a>
+            <ol>
+                <li><a class="on" href="javascript:;">1</a></li>
+                <li><a href="javascript:;">2</a></li>
+                <li><a href="javascript:;">3</a></li>
+                <li><a href="javascript:;">4</a></li>
+                <li><a href="javascript:;">5</a></li>
+                <li><a href="javascript:;">6</a></li>
+                <li><a href="javascript:;">7</a></li>
+                <li><a href="javascript:;">8</a></li>
+                <li><a href="javascript:;">9</a></li>
+                <li><a href="javascript:;">10</a></li>
+            </ol>
+            <a class="btn_next" href="javascript:;">뒤로</a>
+        </div>
+        <a class="btn_reg" href="javascript:;">등록</a>
+    </div>
+    <!-- pager end -->
+</div>
+
+</html>

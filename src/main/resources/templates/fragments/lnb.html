@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav class="side_menu" th:fragment="lnbFragment">
+    <div class="side_menu_bg"></div>
+    <ul>
+        <li>
+            <a class="side_menu01 on" href="javascript:;" th:text="#{lnb.manageProduct}"></a>
+            <ul class="on">
+                <li><a class="" th:classappend="${#httpServletRequest.requestURI == '/cateLList' or #httpServletRequest.requestURI == '/cateLReg' or #httpServletRequest.requestURI == '/cateLModify' } ? 'on' : ''" href="/cateLList" th:text="#{lnb.manageCateL}"></a></li>
+                <li><a class="" th:classappend="${#httpServletRequest.requestURI == '/cateMList' or #httpServletRequest.requestURI == '/cateMReg' or #httpServletRequest.requestURI == '/cateMModify'} ? 'on' : ''" href="/cateMList" th:text="#{lnb.manageCateM}"></a></li>
+                <li><a class="" th:classappend="${#httpServletRequest.requestURI == '/cateSList' or #httpServletRequest.requestURI == '/cateSReg' or #httpServletRequest.requestURI == '/cateSModify'} ? 'on' : ''" href="/cateSList" th:text="#{lnb.manageCateS}"></a></li>
+                <li><a class="" th:classappend="${#httpServletRequest.requestURI == '/productList' or #httpServletRequest.requestURI == '/productReg' or #httpServletRequest.requestURI == '/productModify'} ? 'on' : ''" href="/productList" th:text="#{lnb.manageProduct}"></a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="side_menu02 on" href="javascript:;" th:text="#{lnb.manageSystem}"></a>
+            <ul class="on">
+                <li><a  th:classappend="${#httpServletRequest.requestURI == '/gatewayList' or #httpServletRequest.requestURI == '/gatewayReg' or #httpServletRequest.requestURI == '/gatewayModify'} ? 'on' : ''" href="/gatewayList"  th:text="#{lnb.manageGateway}"></a></li>
+                <li><a  th:classappend="${#httpServletRequest.requestURI == '/tagList' or #httpServletRequest.requestURI == '/tagReg' or #httpServletRequest.requestURI == '/tagModify'} ? 'on' : ''" href="/tagList" th:text="#{lnb.manageTag}"></a></li>
+            </ul>
+        </li>
+        <!--<li><a class="side_menu03" href="javascript:alert('준비중입니다.');">설정</a></li>-->
+    </ul>
+</nav>
+</html>

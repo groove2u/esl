@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminMapper">
+    <delete id="deleteTag" parameterType="box">
+        delete from tbl_Tag WHERE TagCode = #{code}
+
+    </delete>
+    <delete id="deleteTagMapping" parameterType="box">
+        delete from tbl_product_mapping WHERE TagCode = #{code}
+
+    </delete>
+    <select id="getTagList" parameterType="box" resultType="box">
+
+        select a.tagCode,
+               a.tagID,
+               ifnull(a.desc,'') as `desc`,
+               a.gatewayCode,
+               DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate,
+               ifnull(a.batteryStat,'') as batteryStat,
+               ifnull(a.connectStat,'') as connectStat,
+                ifnull(a.signalStat,'') as signalStat,
+                ifnull(a.isCall,'') as isCall,
+               a.productPair,
+               a.templateCode,
+               b.gatewayID,
+               ifnull(c.productName,'') as productName,
+               ifnull(c.cateSName,'') as cateSName
+
+          from tbl_tag a
+          inner join tbl_gateway b on a.gatewayCode = b.gatewayCode
+          left outer join (select productName,cateSName,tagCode from tbl_product_mapping d
+            inner join tbl_product e on d.productCode = e.productCode
+            inner join tbl_cates f on e.cateSCode = f.cateSCode) c on a.tagCode = c.tagCode
+            where 1=1
+        <if test="gatewayCode !=null and gatewayCode != 0">
+            and a.gatewayCode = #{gatewayCode}
+        </if>
+        <if test='tagID !=null'>
+            and tagID like '%' #{tagID} '%'
+        </if>
+        <if test='batteryStat !=null'>
+            <![CDATA[
+            and batteryStat < 20
+            ]]>
+        </if>
+        <if test='signalStat !=null'>
+            <![CDATA[
+            and signalStat < 20
+            ]]>
+        </if>
+        <if test='isCall !=null'>
+            <![CDATA[
+            and isCall = 'Y'
+            ]]>
+        </if>
+
+        order by a.regdate desc
+
+
+
+
+	</select>
+    <insert id="insertTag" parameterType="box" useGeneratedKeys="true" keyProperty="tagCode">
+
+        insert into tbl_tag(tagID,`desc`,gatewayCode,regdate,productPair,connectStat,templateCode,batteryStat,signalStat )
+        values( #{tagID},#{desc} ,#{gatewayCode} ,now(),'N' ,'N',#{templateCode},0,0)
+
+    </insert>
+    <update id="modifyTag" parameterType="box">
+        update tbl_tag
+        set tagID = #{tagID}, `desc` = #{desc}, templateCode = #{templateCode}
+        WHERE
+        tagCode = #{tagCode}
+    </update>
+    <update id="modifyProductPair" parameterType="box">
+        update tbl_tag
+        set productPair='N'
+        WHERE
+        tagCode = #{tagCode}
+    </update>
+    <select id="getTagView" parameterType="box" resultType="box">
+
+        select a.tagCode,
+               a.tagID,
+               a.desc,
+               a.gatewayCode,
+               DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate,
+               ifnull(a.batteryStat,'') as batteryStat,
+               ifnull(a.connectStat,'') as connectStat,
+               ifnull(a.signalStat,'') as signalStat,
+               a.productPair,
+               a.templateCode,
+               b.gatewayID,
+               ifnull(c.productName,'') as productName,
+               ifnull(c.productCode,'') as productCode,
+               ifnull(c.cateSName,'') as cateSName,
+               ifnull(c.cateLCode,'') as cateLCode,
+               ifnull(c.cateMCode,'') as cateMCode,
+               ifnull(c.cateSCode,'') as cateSCode,
+               c.tagCode
+
+          from tbl_tag a
+          inner join tbl_gateway b on a.gatewayCode = b.gatewayCode
+          left outer join (select e.productCode,productName,cateSName,tagCode,e.cateLCode,e.cateMCode,e.cateSCode from tbl_product_mapping d
+            inner join tbl_product e on d.productCode = e.productCode
+            inner join tbl_cates f on e.cateSCode = f.cateSCode) c on a.tagCode = c.tagCode
+          where a.tagCode = #{tagCode}
+	</select>
+    <update id="modifyTagMapping">
+
+        INSERT INTO tbl_product_mapping(productCode,tagCode,regdate) values (#{productCode}, #{tagCode},now())
+        ON DUPLICATE KEY
+        UPDATE productCode = #{productCode},tagCode=#{tagCode}
+
+    </update>
+    <select id="getTagAllCount" parameterType="box" resultType="box">
+        select count(*) as CountAll from tbl_tag
+        where 1=1
+        <if test="gatewayCode !=null and gatewayCode != 0">
+            and gatewayCode = #{gatewayCode}
+        </if>
+        <if test='tagID !=null'>
+            and tagID like '%' #{tagID} '%'
+        </if>
+    </select>
+    <select id="getTagBatteryCount" parameterType="box" resultType="box">
+        <![CDATA[
+        select count(*) as batteryCount from tbl_tag  where batteryStat <=20
+        ]]>
+        <if test="gatewayCode !=null and gatewayCode != 0">
+            and gatewayCode = #{gatewayCode}
+        </if>
+        <if test='tagID !=null'>
+            and tagID like '%' #{tagID} '%'
+        </if>
+    </select>
+    <select id="getTagSignalCount" parameterType="box" resultType="box">
+        <![CDATA[
+        select count(*) as signalCount from tbl_tag  where signalStat <=20
+        ]]>
+        <if test="gatewayCode !=null and gatewayCode != 0">
+            and gatewayCode = #{gatewayCode}
+        </if>
+        <if test='tagID !=null'>
+            and tagID like '%' #{tagID} '%'
+        </if>
+    </select>
+    <select id="getTagCallCount" parameterType="box" resultType="box">
+        <![CDATA[
+        select count(*) as callCount from tbl_tag g where isCall='Y'
+        ]]>
+        <if test="gatewayCode !=null and gatewayCode != 0">
+            and gatewayCode = #{gatewayCode}
+        </if>
+        <if test='tagID !=null'>
+            and tagID like '%' #{tagID} '%'
+        </if>
+    </select>
+    <update id="updateTagCall" parameterType="box">
+        update tbl_tag
+        set isCall = #{isCall}
+        WHERE
+        tagCode = #{tagCode}
+    </update>
+
+</mapper>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Content-Script-Type" content="text/javascript">
+		<meta http-equiv="Content-Style-Type" content="text/css">
+
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+	</head>
+
+	<body>
+		<!-- 삭제 확인 -->
+		<div class="layer_pop with_ttl del_chk" style="display:none;">
+			<div class="layer_pop_ttl">
+				<strong>삭제 확인</strong>
+				<a class="layer_close" href="javascript:;">닫기</a>
+			</div>
+			<p class="del_chk_txt">해당 태그를 삭제하시겠습니까?</p>
+			<div class="layer_pop_btns">
+				<a class="white cancel" href="javascript:;">취소</a>
+				<a class="blue open_del_compl" href="javascript:;">확인</a>
+			</div>
+		</div>
+		<!-- 삭제 확인 end -->
+		<!-- 삭제 완료 -->
+		<div class="layer_pop with_ttl del_compl" style="display:none;">
+			<div class="layer_pop_ttl">
+				<strong>삭제 완료</strong>
+				<a class="layer_close" href="javascript:;">닫기</a>
+			</div>
+			<p class="del_chk_txt">태그 삭제가 완료되었습니다.</p>
+			<div class="layer_pop_btns">
+				<a class="blue ok" href="javascript:;">확인</a>
+			</div>
+		</div>
+		<!-- 삭제 완료 end -->
+		<div id="wrap">
+			<header class="cont_head" id="header">
+				<h1>주식회사 하엠</h1>
+				<div class="head_utils">
+					<div class="utils_greet">
+						000님 안녕하세요.
+						<a class="btn_alarm" href="javascript:;">
+							<i>알림</i>
+						</a>
+					</div>
+					<div class="lang_sel">
+						<select>
+							<option>LANGUAGE</option>
+						</select>
+						<a class="btn_logout" href="javascript:;">로그아웃</a>
+					</div>
+				</div>
+			</header>
+			<div class="cont_wrap">
+				<!-- LNB -->
+				<nav class="side_menu">
+					<div class="side_menu_bg"></div>
+					<ul>
+						<li><a class="side_menu01" href="javascript:;">상품관리</a></li>
+						<li>
+							<a class="side_menu02 on" href="javascript:;">시스템관리</a>
+							<ul class="on">
+								<li><a href="javascript:;">게이트웨이관리</a></li>
+								<li><a class="on" href="javascript:;">태그관리</a></li>
+							</ul>
+						</li>
+						<li><a class="side_menu03" href="javascript:;">설정</a></li>
+					</ul>
+				</nav>
+				<!-- LNB end -->
+				<!-- contents -->
+				<div class="cont_area">
+					<div class="cont_ttl_wrap">
+						<strong>태그 목록</strong>
+					</div>
+					<div class="tbl_wrap">
+						<div class="tag_filter_wrap">
+							<div class="left">
+								<strong>게이트웨이</strong>
+								<select>
+									<option>a1234</option>
+								</select>
+							</div>
+							<div class="right">
+								<div class="stat_card green">
+									<p>정상</p>
+									<span>
+										<strong>1</strong> 개
+									</span>
+								</div>
+								<div class="stat_card blue">
+									<p>배터리 부족</p>
+									<span>
+										<strong>1</strong> 개
+									</span>
+								</div>
+								<div class="stat_card red">
+									<p>신호 불량</p>
+									<span>
+										<strong>1</strong> 개
+									</span>
+								</div>
+								<div class="stat_card yellow">
+									<p>콜 태그</p>
+									<span>
+										<strong>4</strong> 개
+									</span>
+								</div>
+								<select>
+									<option>20개</option>
+								</select>
+							</div>
+						</div>
+						<table>
+							<colgroup>
+								<col style="width:6%;">
+								<col style="width:7%;">
+								<col style="width:8%;">
+								<col style="width:6%;">
+								<col style="width:11%;">
+								<col style="width:8%;">
+								<col style="width:9%;">
+								<col style="width:10%;">
+								<col style="width:5%;">
+								<col style="width:10%;">
+								<col style="width:10%;">
+								<col style="width:10%;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>
+										<p class="tbl_chk">
+											<input id="chkAll" name="" type="checkbox">
+											<label for="chkAll">전체선택</label>
+										</p>
+									</th>
+									<th>상품명</th>
+									<th>분류명</th>
+									<th>코드</th>
+									<th>게이트웨이코드</th>
+									<th>배터리상태</th>
+									<th>연결상태</th>
+									<th>신호세기</th>
+									<th>콜여부</th>
+									<th>상품동기화여부</th>
+									<th>등록일</th>
+									<th>상태변경</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<p class="tbl_chk">
+											<input id="chk1" name="" type="checkbox">
+											<label for="chk1">선택</label>
+										</p>
+									</td>
+									<td>Hitte</td>
+									<td>주류</td>
+									<td>a1234</td>
+									<td class="blue">a1234</td>
+									<td><p class="regi_stat green"><strong>78</strong>%</p></td>
+									<td><p class="regi_stat green">정상연결</p></td>
+									<td><p class="regi_stat red">-60 dBm</p></td>
+									<td><i class="use_stat yes">사용</i></td>
+									<td><i class="use_stat no">미사용</i></td>
+									<td>2021.09.30</td>
+									<td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+								</tr>
+								<tr>
+									<td>
+										<p class="tbl_chk">
+											<input id="chk2" name="" type="checkbox">
+											<label for="chk2">선택</label>
+										</p>
+									</td>
+									<td>Hitte</td>
+									<td>주류</td>
+									<td>a1234</td>
+									<td class="blue">a1234</td>
+									<td><p class="regi_stat green"><strong>78</strong>%</p></td>
+									<td><p class="regi_stat red">연결불량</p></td>
+									<td><p class="regi_stat red">-10 dBm</p></td>
+									<td><i class="use_stat yes">사용</i></td>
+									<td><i class="use_stat yes">사용</i></td>
+									<td>2021.09.30</td>
+									<td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+								</tr>
+								<tr>
+									<td>
+										<p class="tbl_chk">
+											<input id="chk3" name="" type="checkbox">
+											<label for="chk3">선택</label>
+										</p>
+									</td>
+									<td>Hitte</td>
+									<td>주류</td>
+									<td>a1234</td>
+									<td class="blue">a1234</td>
+									<td><p class="regi_stat blue"><strong>10</strong>%</p></td>
+									<td><p class="regi_stat green">정상연결</p></td>
+									<td><p class="regi_stat red">-60 dBm</p></td>
+									<td><i class="use_stat yes">사용</i></td>
+									<td><i class="use_stat yes">사용</i></td>
+									<td>2021.09.30</td>
+									<td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+								</tr>
+								<tr>
+									<td>
+										<p class="tbl_chk">
+											<input id="chk4" name="" type="checkbox">
+											<label for="chk4">선택</label>
+										</p>
+									</td>
+									<td>Hitte</td>
+									<td>주류</td>
+									<td>a1234</td>
+									<td class="blue">a1234</td>
+									<td><p class="regi_stat blue"><strong>10</strong>%</p></td>
+									<td><p class="regi_stat green">정상연결</p></td>
+									<td><p class="regi_stat yellow">-30 dBm</p></td>
+									<td><i class="use_stat yes">사용</i></td>
+									<td><i class="use_stat yes">사용</i></td>
+									<td>2021.09.30</td>
+									<td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- pager -->
+						<div class="tbl_bottom">
+							<a class="btn_del" href="javascript:;">삭제</a>
+							<div class="tbl_pager">
+								<a class="btn_prev" href="javascript:;">앞으로</a>
+								<ol>
+									<li><a class="on" href="javascript:;">1</a></li>
+									<li><a href="javascript:;">2</a></li>
+									<li><a href="javascript:;">3</a></li>
+									<li><a href="javascript:;">4</a></li>
+									<li><a href="javascript:;">5</a></li>
+									<li><a href="javascript:;">6</a></li>
+									<li><a href="javascript:;">7</a></li>
+									<li><a href="javascript:;">8</a></li>
+									<li><a href="javascript:;">9</a></li>
+									<li><a href="javascript:;">10</a></li>
+								</ol>
+								<a class="btn_next" href="javascript:;">뒤로</a>
+							</div>
+						</div>
+						<!-- pager end -->
+					</div>
+					<p class="copyright">Copyright&nbsp;&nbsp;© 2021 HAEM. All rights reserved.</p>
+				</div>
+				<!-- contents end -->
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+
+		<script type="text/javascript" src="js/common.js"></script>
+
+	</body>
+</html>

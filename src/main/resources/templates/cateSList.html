@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="tbl_wrap" layout:fragment="content">
+    <form id="frm" name="frm" method="post">
+        <div class="tbl_filter_wrap">
+            <div class="left">
+                <p class="sel_ttl">대분류선택</p>
+                <select class="cate_sel" id="cateL">
+                </select>
+            </div>
+            <div class="left">
+                <p class="sel_ttl">중분류선택</p>
+                <select class="cate_sel" id="cateM">
+                </select>
+            </div>
+            <div class="right">
+                <select class="num_sel" id="pageSize">
+                    <option value="10">10개</option>
+                    <option value="20">20개</option>
+                    <option value="50">50개</option>
+                </select>
+            </div>
+        </div>
+        <table>
+            <colgroup>
+                <col style="width:7%;">
+                <col style="width:5%;">
+                <col style="width:38%;">
+                <col style="width:15%;">
+                <col style="width:21%;">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>
+                    <p class="tbl_chk">
+                        <input id="chkAll" name="chkAll" type="checkbox">
+                        <label for="chkAll">전체선택</label>
+                    </p>
+                </th>
+                <th>no</th>
+                <th class="ttl">분류명</th>
+                <th>등록일</th>
+                <th>상태변경</th>
+            </tr>
+            </thead>
+            <tbody id="data">
+            </tbody>
+        </table>
+        <!-- pager -->
+        <div class="tbl_bottom">
+            <a class="btn_del" href="javascript:;" id="btnDel">삭제</a>
+            <div class="tbl_pager">
+                <a class="btn_prev" id="pageFirst" href="javascript:;">앞으로</a>
+                <ol id="paging">
+                </ol>
+                <a class="btn_next"  id="pageLast" href="javascript:;">뒤로</a>
+            </div>
+            <a class="btn_reg" href="javascript:;" id="btnReg">등록</a>
+        </div>
+
+
+
+
+    <script type="text/javascript" src="/js/cateSList.js"></script>
+    </form>
+</div>
+
+</html>

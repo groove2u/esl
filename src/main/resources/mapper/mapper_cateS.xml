@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminMapper">
+    <select id="getCateSList" parameterType="box" resultType="box">
+        select * from tbl_cates b where useYN="Y" and b.cateSCode = #{cateSCode} order by cateSCode
+	</select>
+
+    <select id="getcateSList" parameterType="box" resultType="box">
+
+
+        select a.cateSCode,
+        a.cateSName,
+        a.desc,
+        a.discount,
+        a.useYN,
+        a.cateMCode,
+        DATE_FORMAT(a.regdate, '%Y-%m-%d' ) AS regdate,
+        b.cateLCode,
+        ifnull(c.cnt,0) as cnt
+        from tbl_cates a
+        inner join tbl_cateM b on a.cateMCode = b.cateMCode
+        left outer join (select count(*) as cnt,cateSCode from tbl_product a group by a.cateSCode) c on a.cateSCode = c.cateSCode
+
+        where a.useYN="Y"
+        <if test="cateLCode!=null and cateLCode != 0">
+            and b.cateLCode = #{cateLCode}
+        </if>
+        <if test="cateMCode!=null and cateMCode != 0">
+            and a.cateMCode = #{cateMCode}
+        </if>
+
+        order by cateSCode
+    </select>
+
+    <insert id="insertcateS" parameterType="box">
+
+        insert into tbl_cateS( cateSName,`desc`,discount,useYN,cateMCode,regdate )
+        values(#{cateSName},#{desc},#{discount},#{useYN},#{cateM},now())
+
+    </insert>
+    <update id="modifycateS" parameterType="box">
+        update tbl_cateS
+        set CateMCode = #{cateM},cateSName = #{cateSName}, `desc` = #{desc}, discount = #{discount}, useYN = #{useYN}
+        WHERE
+        cateSCode = #{cateSCode}
+    </update>
+    <select id="getcateSView" parameterType="box" resultType="box">
+        select
+        a.cateMCode,
+        a.cateSCode,
+               a.cateSName,
+               a.desc,
+               a.discount,
+               a.useYN,
+               b.cateLCode,
+               DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate
+          from tbl_cateS a
+          inner join tbl_cateM b on a.cateMCode = b.cateMCode
+          where a.cateSCode = #{cateSCode}
+	</select>
+    <delete id="deletecateS" parameterType="box">
+        delete from tbl_cateS WHERE cateSCode = #{code}
+
+    </delete>
+
+</mapper>

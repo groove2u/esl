@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="cate_regi_input" layout:fragment="content">
+    <form method="post" action="/modifyGateway" name="frm" id="frm">
+        <input type="hidden" name="gatewayCode" id="gatewayCode" th:value="${gatewayCode}"/>
+        <dl>
+            <dt>아이디</dt>
+            <dd><input class="cate_name" id="gatewayID" name="gatewayID" placeholder="Ex) 악세서리, 잡화, 식품" type="text"></dd>
+        </dl>
+        <dl>
+            <dt>위치</dt>
+            <dd><input class="cate_name" id="location" name="location" placeholder="Ex) 악세서리, 잡화, 식품" type="text"></dd>
+        </dl>
+        <dl>
+            <dt>설명</dt>
+            <dd>
+                <textarea id="desc" name="desc" placeholder="Ex) 악세서리, 잡화, 식품"></textarea>
+            </dd>
+        </dl>
+    <div class="cate_regi_btns">
+        <a class="cancel" href="javascript:;" id="btnCancel">취소</a>
+        <a class="regist" href="javascript:;" id="btnReg">등록</a>
+    </div>
+</form>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/gatewayModify.js"></script>
+</div>
+    <!-- pager end -->
+
+</html>

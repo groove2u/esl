@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="cate_regi_input" layout:fragment="content">
+    <form method="post" action="/insertcateS" name="frm" id="frm">
+        <input type="hidden" id="cateLCode" name="cateLCode"  th:value="${cateLCode}">
+        <input type="hidden" id="cateMCode" name="cateMCode"  th:value="${cateMCode}">
+        <dl>
+            <dt>대분류 선택</dt>
+            <dd>
+                <select class="cate_regi_sel" id="cateL" name="cateL">
+                </select>
+            </dd>
+        </dl>
+        <dl>
+            <dt>중분류 선택</dt>
+            <dd>
+                <select class="cate_regi_sel" id="cateM" name="cateM">
+                </select>
+            </dd>
+        </dl>
+        <dl>
+            <dt>소분류명</dt>
+            <dd><input class="cate_name" id="cateSName" name="cateSName" placeholder="Ex) 악세서리, 잡화, 식품" type="text"></dd>
+        </dl>
+        <dl>
+            <dt>설명</dt>
+            <dd>
+                <textarea id="desc" name="desc" placeholder="Ex) 악세서리, 잡화, 식품"></textarea>
+            </dd>
+        </dl>
+        <dl class="discnt">
+            <dt>할인율</dt>
+            <dd>
+                <input class="cate_discnt" id="discount" name="discount" type="text" value="0">
+                <p class="perct">%</p>
+            </dd>
+        </dl>
+        <dl>
+            <dt>사용여부</dt>
+            <dd>
+                <p class="cate_use_radio">
+                    <input id="yes" name="useYN" type="radio" value="Y" checked>
+                    <label for="yes">Y</label>
+                </p>
+                <p class="cate_use_radio">
+                    <input id="no" name="useYN" type="radio" value="N">
+                    <label for="no">N</label>
+                </p>
+            </dd>
+        </dl>
+    <div class="cate_regi_btns">
+        <a class="cancel" href="javascript:;" id="btnCancel">취소</a>
+        <a class="regist" href="javascript:;" id="btnReg">등록</a>
+    </div>
+</form>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/cateSReg.js"></script>
+</div>
+    <!-- pager end -->
+
+</html>

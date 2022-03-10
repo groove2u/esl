@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="tbl_wrap" layout:fragment="content">
+    <form id="frm" name="frm" method="get">
+        <input type="hidden" name="param" id="param" value=""/>
+        <input type="hidden" name="isCall" id="isCall" value=""/>
+        <input type="hidden" name="signalStat" id="signalStat" value=""/>
+        <input type="hidden" name="batteryStat" id="batteryStat" value=""/>
+        <input type="hidden" name="curGatewayCode" id="curGatewayCode" th:value="${gatewayCode}"/>
+            <div class="tag_filter_wrap">
+                <div class="left">
+                    <strong>게이트웨이</strong>
+                    <select id="gatewayCode" name="gatewayCode">
+                    </select>
+                </div>
+                <div class="right">
+                    <div class="stat_card green"  id="allBtn">
+                        <p>전체</p>
+                        <span>
+										<strong id="countAll">1</strong> 개
+									</span>
+                    </div>
+                    <div class="stat_card blue"  id="batteryBtn">
+                        <p>배터리 부족</p>
+                        <span>
+										<strong id="countBattery">1</strong> 개
+									</span>
+                    </div>
+                    <div class="stat_card red" id="signalBtn">
+                        <p>신호 불량</p>
+                        <span>
+										<strong id="countSignal">1</strong> 개
+									</span>
+                    </div>
+                    <div class="stat_card yellow" id="callBtn">
+                        <p>콜 태그</p>
+                        <span>
+										<strong id="countCall">4</strong> 개
+									</span>
+                    </div>
+                    <select class="num_sel" id="pageSize" name="pageSize">
+                        <option value="10" th:selected="${pageSize} == '10'">10개</option>
+                        <option value="20" th:selected="${pageSize} == '20'">20개</option>
+                        <option value="50" th:selected="${pageSize} == '50'">50개</option>
+                    </select>
+                </div>
+            </div>
+            <table>
+                <colgroup>
+                    <col style="width:6%;">
+                    <col style="width:7%;">
+                    <col style="width:8%;">
+                    <col style="width:6%;">
+                    <col style="width:11%;">
+                    <col style="width:8%;">
+                    <col style="width:9%;">
+                    <col style="width:10%;">
+                    <col style="width:5%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <p class="tbl_chk">
+                            <input id="chkAll" name="chkAll" type="checkbox">
+                            <label for="chkAll">전체선택</label>
+                        </p>
+                    </th>
+                    <th>상품명</th>
+                    <th>분류명</th>
+                    <th>코드</th>
+                    <th>게이트웨이코드</th>
+                    <th>배터리상태</th>
+                    <th>연결상태</th>
+                    <th>신호세기</th>
+                    <th>콜여부</th>
+                    <th>상품동기화여부</th>
+                    <th>등록일</th>
+                    <th>상태변경</th>
+                </tr>
+                </thead>
+                <tbody id="data">
+                <tr>
+                    <td>
+                        <p class="tbl_chk">
+                            <input id="chk1" name="" type="checkbox">
+                            <label for="chk1">선택</label>
+                        </p>
+                    </td>
+                    <td>Hitte</td>
+                    <td>주류</td>
+                    <td>a1234</td>
+                    <td class="blue">a1234</td>
+                    <td><p class="regi_stat green"><strong>78</strong>%</p></td>
+                    <td><p class="regi_stat green">정상연결</p></td>
+                    <td><p class="regi_stat red">-60 dBm</p></td>
+                    <td><i class="use_stat yes">사용</i></td>
+                    <td><i class="use_stat no">미사용</i></td>
+                    <td>2021.09.30</td>
+                    <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="tbl_chk">
+                            <input id="chk2" name="" type="checkbox">
+                            <label for="chk2">선택</label>
+                        </p>
+                    </td>
+                    <td>Hitte</td>
+                    <td>주류</td>
+                    <td>a1234</td>
+                    <td class="blue">a1234</td>
+                    <td><p class="regi_stat green"><strong>78</strong>%</p></td>
+                    <td><p class="regi_stat red">연결불량</p></td>
+                    <td><p class="regi_stat red">-10 dBm</p></td>
+                    <td><i class="use_stat yes">사용</i></td>
+                    <td><i class="use_stat yes">사용</i></td>
+                    <td>2021.09.30</td>
+                    <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="tbl_chk">
+                            <input id="chk3" name="" type="checkbox">
+                            <label for="chk3">선택</label>
+                        </p>
+                    </td>
+                    <td>Hitte</td>
+                    <td>주류</td>
+                    <td>a1234</td>
+                    <td class="blue">a1234</td>
+                    <td><p class="regi_stat blue"><strong>10</strong>%</p></td>
+                    <td><p class="regi_stat green">정상연결</p></td>
+                    <td><p class="regi_stat red">-60 dBm</p></td>
+                    <td><i class="use_stat yes">사용</i></td>
+                    <td><i class="use_stat yes">사용</i></td>
+                    <td>2021.09.30</td>
+                    <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="tbl_chk">
+                            <input id="chk4" name="" type="checkbox">
+                            <label for="chk4">선택</label>
+                        </p>
+                    </td>
+                    <td>Hitte</td>
+                    <td>주류</td>
+                    <td>a1234</td>
+                    <td class="blue">a1234</td>
+                    <td><p class="regi_stat blue"><strong>10</strong>%</p></td>
+                    <td><p class="regi_stat green">정상연결</p></td>
+                    <td><p class="regi_stat yellow">-30 dBm</p></td>
+                    <td><i class="use_stat yes">사용</i></td>
+                    <td><i class="use_stat yes">사용</i></td>
+                    <td>2021.09.30</td>
+                    <td><a class="tbl_squr_btn" href="javascript:;">수정</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- pager -->
+            <div class="tbl_bottom">
+                <a class="btn_del" href="javascript:;" id="btnDel">삭제</a>
+                <div class="tbl_pager">
+                    <a class="btn_prev" id="pageFirst" href="javascript:;">앞으로</a>
+                    <ol id="paging">
+                    </ol>
+                    <a class="btn_next" id="pageLast" href="javascript:;">뒤로</a>
+                </div>
+                <a class="btn_reg" href="javascript:;" id="btnReg">등록</a>
+            </div>
+
+
+            <script type="text/javascript" src="/js/tagList.js"></script>
+    </form>
+</div>
+
+</html>

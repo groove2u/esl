@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminMapper">
+    <delete id="deleteGateway" parameterType="box">
+        delete from tbl_Gateway WHERE GatewayCode = #{code}
+
+    </delete>
+
+    <select id="getGatewayList" parameterType="box" resultType="box">
+        select a.gatewayCode,
+               a.gatewayID,
+               a.desc,
+               a.status,
+               a.location,
+               a.macaddress,
+               a.serverCode,
+               DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate,
+               ifnull(b.cnt,0) as cnt
+
+          from tbl_gateway a
+          left outer join (select count(*) as cnt,gatewayCode from tbl_tag group by gatewayCode) b on a.gatewayCode = b.gatewayCode
+	</select>
+    <insert id="insertGateway" parameterType="box">
+
+        insert into tbl_gateway(gatewayID,`desc`,location,serverCode,status,regdate )
+        values( #{gatewayID},#{desc} ,#{location} ,1 ,'1', now())
+    </insert>
+    <update id="modifyGateway" parameterType="box">
+        update tbl_gateway
+        set gatewayID = #{gatewayID}, `desc` = #{desc}, location = #{location}
+        WHERE
+        gatewayCode = #{gatewayCode}
+    </update>
+    <select id="getGatewayView" parameterType="box" resultType="box">
+
+        select a.gatewayCode,
+               a.gatewayID,
+               a.desc,
+               a.location,
+               DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate
+          from tbl_Gateway a
+          where a.gatewayCode = #{gatewayCode}
+	</select>
+</mapper>

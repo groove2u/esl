@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="cate_regi_input" layout:fragment="content">
+    <form method="post" action="/modifyTag" name="frm" id="frm">
+        <input type="hidden" name="tagCode" id="tagCode" th:value="${tagCode}"/>
+        <input type="hidden" id="gatewayCode" name="gatewayCode" th:value="${gatewayCode}"/>
+        <input type="hidden" id="signalStat" name="signalStat" th:value="${signalStat}"/>
+        <input type="hidden" id="batteryStat" name="batteryStat" th:value="${batteryStat}"/>
+        <input type="hidden" id="curGatewayCode" name="curGatewayCode" th:value="${curGatewayCode}"/>
+        <input type="hidden" id="pageSize" name="curGatewayCode" th:value="${pageSize}"/>
+
+
+        <dl>
+            <dt>코드</dt>
+            <dd><input class="cate_code" id="tagID" name="tagID" readonly="readonly" type="text" value="a1134"></dd>
+        </dl>
+        <dl>
+            <dt>게이트웨이코드</dt>
+            <dd><input class="cate_code" id="gatewayID" name="gatewayID" readonly="readonly" type="text" value="a11345"></dd>
+        </dl>
+        <dl>
+            <dt>설명</dt>
+            <dd>
+                <textarea placeholder="태그설명" id="desc" name="desc"></textarea>
+            </dd>
+        </dl>
+        <dl class="discnt">
+            <dt>태그 형태</dt>
+            <dd>
+                <p class="cate_use_radio">
+                    <input id="type1" name="templateCode" type="radio" value="1">
+                    <label for="type1">A형(2.13 BW)</label>
+                </p>
+                <p class="cate_use_radio">
+                    <input id="type2" name="templateCode" type="radio" value="2">
+                    <label for="type2">B형(2.7 BW)</label>
+                </p>
+                <p class="cate_use_radio">
+                    <input id="type3" name="templateCode" type="radio" value="3">
+                    <label for="type3">C형(2.13 BWR)</label>
+                </p>
+            </dd>
+        </dl>
+        <!--
+        <dl class="tag_use">
+            <dt>사용여부</dt>
+            <dd>
+                <div class="tag_sel_radio">
+                    <figure><img alt="" src="img/pic01.jpg"></figure>
+                    <p>
+                        <input id="tagUse1" name="tagUse" type="radio">
+                        <label for="tagUse1">기본형</label>
+                    </p>
+                </div>
+                <div class="tag_sel_radio">
+                    <figure><img alt="" src="img/pic02.jpg"></figure>
+                    <p>
+                        <input id="tagUse2" name="tagUse" type="radio">
+                        <label for="tagUse2">할인제품</label>
+                    </p>
+                </div>
+                <div class="tag_sel_radio">
+                    <figure><img alt="" src="img/pic03.jpg"></figure>
+                    <p>
+                        <input id="tagUse3" name="tagUse" type="radio">
+                        <label for="tagUse3">품절</label>
+                    </p>
+                </div>
+            </dd>
+        </dl>
+        -->
+        <dl class="discnt">
+            <dt>상품 선택</dt>
+            <dd>
+                <select class="cate_regi_sel" id="cateL" name="cateL">
+                    <option>대분류</option>
+                </select>
+                <select class="cate_regi_sel" id="cateM" name="cateM">
+                    <option>중분류</option>
+                </select>
+                <select class="cate_regi_sel" id="cateS" name="cateS">
+                    <option>소분류</option>
+                </select>
+                <select class="cate_regi_sel" id="productCode" name="productCode">
+                    <option value="0">상품</option>
+                </select>
+            </dd>
+        </dl>
+        <!--
+        <dl class="tag_use">
+            <dt>태그 미리보기</dt>
+            <dd>
+                <figure><img alt="" src="img/big_pic01.jpg"></figure>
+                <a class="btn_see_all tag" href="javascript:;">전체보기</a>
+            </dd>
+        </dl>
+        -->
+
+
+
+
+    <div class="cate_regi_btns">
+        <a class="cancel" href="javascript:;" id="btnCancel">취소</a>
+        <a class="regist" href="javascript:;" id="btnReg">등록</a>
+    </div>
+</form>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/tagModify.js"></script>
+</div>
+    <!-- pager end -->
+
+</html>

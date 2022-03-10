@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="tbl_wrap" layout:fragment="content">
+    <form id="frm" name="frm" method="post">
+
+    <div class="tbl_filter_wrap">
+        <div class="left">
+            <p class="sel_ttl">대분류선택</p>
+            <select class="cate_sel" id="cateL">
+            </select>
+            <p class="sel_ttl">중분류선택</p>
+            <select class="cate_sel" id="cateM">
+                <option value="0">----선택----</option>
+            </select>
+            <p class="sel_ttl">소분류전체</p>
+            <select class="cate_sel" id="cateS">
+                <option value="0">----선택----</option>
+            </select>
+            <a class="btn_see_all" href="javascript:;" id="btnClear">전체보기</a>
+        </div>
+        <div class="right">
+            <div class="prod_sub_serach">
+                <input id="productName" name=="productName" placeholder="상품명검색" type="text">
+                <input id="btnSearch" name=="btnSearch" type="submit" value="검색">
+            </div>
+            <select class="num_sel" id="pageSize">
+                <option value="10">10개</option>
+                <option value="20">20개</option>
+                <option value="50">50개</option>
+            </select>
+        </div>
+    </div>
+    <table>
+        <colgroup>
+            <col style="width:6%;">
+            <col style="width:5%;">
+            <col style="width:11%;">
+            <col style="width:13%;">
+            <col style="width:7%;">
+            <col style="width:14%;">
+            <col style="width:9%;">
+            <col style="width:11%;">
+            <col style="width:12%;">
+            <col style="width:12%;">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>
+                <p class="tbl_chk">
+                    <input id="chkAll" name="chkAll" type="checkbox">
+                    <label for="chkAll">전체선택</label>
+                </p>
+            </th>
+            <th>no</th>
+            <th>상품명(태그수)</th>
+            <th>상품설명</th>
+            <th>할인율</th>
+            <th>할인기간</th>
+            <th>묶음할인</th>
+            <th>가격</th>
+            <th>등록일</th>
+            <th>상태변경</th>
+        </tr>
+        </thead>
+        <tbody id="data">
+        </tbody>
+    </table>
+    <!-- pager -->
+    <div class="tbl_bottom">
+        <a class="btn_del" href="javascript:;" id="btnDel">삭제</a>
+        <div class="tbl_pager">
+            <a class="btn_prev" id="pageFirst" href="javascript:;">앞으로</a>
+            <ol id="paging">
+            </ol>
+            <a class="btn_next"  id="pageLast" href="javascript:;">뒤로</a>
+        </div>
+        <a class="btn_reg" href="javascript:;">등록</a>
+    </div>
+    <!-- pager end -->
+    <script type="text/javascript" src="/js/productList.js"></script>
+    </form>
+</div>
+
+</html>

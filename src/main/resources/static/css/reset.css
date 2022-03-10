@@ -1,0 +1,79 @@
+@charset utf-8;
+
+/* CSS 초기화 */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+	background:transparent;
+	border:0;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	font-weight:normal;
+	font-family:"Noto Sans KR", HelveticaNeue, DroidSans, Sans-serif, Helvetica;
+	margin:0;
+	padding:0;
+	vertical-align:baseline;
+}
+
+html {
+	font-size:16px;
+}
+
+body {
+	color:#505050;
+	line-height:1.2;
+	min-width:320px;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display:block;
+}
+
+nav ul, li {
+	list-style:none;
+}
+
+a {
+	background:transparent;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	vertical-align:baseline;
+}
+
+img {
+	max-width:100%;
+	vertical-align:top;
+}
+
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+input {
+	border-radius:0;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	font-family:"Noto Sans KR", HelveticaNeue, DroidSans, Sans-serif, Helvetica;
+	font-weight:normal;
+	margin:0;
+	padding:0;
+	vertical-align:top;
+}
+
+select, textarea {
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	font-family:"Noto Sans KR", HelveticaNeue, DroidSans, Sans-serif, Helvetica;
+}
+
+.hide { font-size:0; height:0; left:-9999px; overflow:hidden; position:absolute; text-indent:-9999px; width:0; }
+
+header,
+nav,
+section,
+article,
+aside,
+footer { display:block; }

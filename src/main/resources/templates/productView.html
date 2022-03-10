@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="cate_regi_input" layout:fragment="content">
+    <!-- 태그 등록 -->
+    <div class="layer_pop with_ttl tag_reg" id="tagReg" style="display:none;width:730px">
+        <div class="layer_pop_ttl">
+            <strong>태그 등록</strong>
+            <a class="layer_close" href="javascript:;" id="btnClose">닫기</a>
+        </div>
+        <div class="reg_tag_list">
+            <p class="sel_regd_tag">
+                등록된 태그 선택
+                <a href="javascript:;" id="btnTagList">태그목록</a>
+            </p>
+            <div class="tag_search">
+                <input id="tagID" name="tagID" placeholder="태그코드검색" type="text">
+                <input id="searchTag" name="searchTag" type="submit" value="검색">
+            </div>
+            <ul id="tagList">
+            </ul>
+        </div>
+        <div class="layer_pop_btns">
+            <a class="blue regist" href="javascript:;" id="btnRegTag">등록</a>
+        </div>
+    </div>
+    <!-- 태그 등록 end -->
+    <form method="post" action="/ProductModify" name="frm" id="frm">
+        <input type="hidden" name="productCode" id="productCode" th:value="${productCode}"/>
+    <dl class="discnt">
+        <dt>대분류</dt>
+        <dd>
+            <select class="cate_regi_sel" id="cateL" name="cateL">
+                <option>맥주</option>
+            </select>
+        </dd>
+    </dl>
+    <dl class="discnt">
+        <dt>중분류</dt>
+        <dd>
+            <select class="cate_regi_sel" id="cateM" name="cateM">
+                <option>보리맥주</option>
+            </select>
+        </dd>
+    </dl>
+    <dl class="discnt">
+        <dt>소분류</dt>
+        <dd>
+            <select class="cate_regi_sel" id="cateS" name="cateS">
+                <option>소분류</option>
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt>상품명</dt>
+        <dd><input class="cate_name" id="productName" name="productName" placeholder="Ex) Maxx, Hitte" type="text"></dd>
+    </dl>
+    <!--
+    <dl>
+        <dt>상품 URL</dt>
+        <dd><input class="cate_name" id="" name="" placeholder="Ex) " type="text"></dd>
+    </dl>
+    <dl>
+        <dt>상품 코드</dt>
+        <dd>
+            <input class="prod_serial" id="" name="" placeholder="일련번호(숫자) 작성" type="text">
+            <a class="find_serial" href="javascript:;">찾아보기</a>
+        </dd>
+    </dl>
+    <dl class="discnt">
+        <dt>QR코드</dt>
+        <dd><a class="find_serial" href="javascript:;">찾아보기</a></dd>
+    </dl>
+    -->
+    <dl>
+        <dt>가격</dt>
+        <dd><input class="prod_price" id="price" name="price" placeholder="" type="text"></dd>
+    </dl>
+    <dl class="discnt">
+        <dt>할인율</dt>
+        <dd>
+            <input class="cate_discnt" id="discount" name="discount" type="text">
+            <p class="perct">%</p>
+        </dd>
+    </dl>
+    <dl class="discnt">
+        <dt>할인기간</dt>
+        <dd>
+            <input class="cate_discnt" id="saleStart" name="saleStart" type="text">
+            <p class="wave">~</p>
+            <input class="cate_discnt" id="saleEnd" name="saleEnd" type="text">
+        </dd>
+    </dl>
+    <dl class="discnt">
+        <dt>묶음할인</dt>
+        <dd>
+            <p class="cate_use_radio">
+                <input id="bundle1" name="bundle" type="radio" value="0">
+                <label for="bundle1">없음</label>
+            </p>
+            <p class="cate_use_radio">
+                <input id="bundle2" name="bundle" type="radio" value="1">
+                <label for="bundle2">1+1</label>
+            </p>
+            <p class="cate_use_radio">
+                <input id="bundle3" name="bundle" type="radio"  value="2">
+                <label for="bundle3">2+1</label>
+            </p>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt>설명</dt>
+        <dd>
+            <textarea placeholder="Ex) 100g 당 200원, 1EA당 500원" id="desc" name="desc"></textarea>
+        </dd>
+    </dl>
+        <div id="data">
+        </div>
+    <dl class="discnt">
+        <dt>상품위치</dt>
+        <dd>
+            <input class="cate_discnt" id="position" name="position" type="text">
+        </dd>
+    </dl>
+    <div class="cate_regi_btns">
+        <a class="cancel" href="javascript:;" id="cancel">취소</a>
+        <a class="regist" href="javascript:;" id="submit">등록</a>
+    </div>
+
+    </form>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/productView.js"></script>
+    <script type="text/javascript" src="/js/tagRegPopUp.js"></script>
+</div>
+    <!-- pager end -->
+
+</html>

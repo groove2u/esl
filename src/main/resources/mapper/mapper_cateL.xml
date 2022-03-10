@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminMapper">
+    <delete id="deleteCateL" parameterType="box">
+        delete from tbl_cateL WHERE cateLCode = #{code}
+
+    </delete>
+
+    <select id="getCateLList" parameterType="box" resultType="box">
+        select a.cateLCode,
+           a.cateLName,
+           a.desc,
+           a.discount,
+           a.useYN,
+           DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate,
+           ifnull(b.cnt,0) as cnt
+        from tbl_catel a
+        left outer join (select count(*) as cnt,cateLCode from tbl_product a group by a.cateLCode) b on a.cateLCode = b.cateLCode
+        where useYN="Y" order by cateLCode
+	</select>
+    <insert id="insertCateL" parameterType="box">
+
+        insert into tbl_catel( cateLName,`desc`,discount,useYN,regdate )
+        values(#{cateLName},#{desc},#{discount},#{useYN},now())
+
+    </insert>
+    <update id="modifyCateL" parameterType="box">
+        update tbl_catel
+        set cateLName = #{cateLName}, `desc` = #{desc}, discount = #{discount}, useYN = #{useYN}
+        WHERE
+        cateLCode = #{cateLCode}
+    </update>
+    <select id="getCateLView" parameterType="box" resultType="box">
+
+        select a.cateLCode,
+               a.cateLName,
+               a.desc,
+               a.discount,
+               a.useYN,
+               DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate
+          from tbl_catel a
+          where a.cateLCode = #{cateLCode}
+	</select>
+</mapper>
