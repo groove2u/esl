@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<script>
+var messages = new Array();
+<th:block th:each="key : ${keys}">
+    messages["th:text='${key}' javaScriptEscape='true'/>"] = "<th:text code='${key}' javaScriptEscape='true' />";
+</th:block>
+</script>
+
+/**
+* Tranlate a String by key, if key is not defined return the key.
+*
+* @param {String} key
+* @returns {String}
+*/
+<script>
+function t(key) {
+    if (messages[key]) {
+        return messages[key];
+    }
+    return key;
+}
+</script>
+</html>

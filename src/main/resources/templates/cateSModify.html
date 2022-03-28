@@ -6,31 +6,31 @@
     <form method="post" action="/modifycateS" name="frm" id="frm">
         <input type="hidden" name="cateSCode" id="cateSCode" th:value="${cateSCode}"/>
         <dl>
-            <dt>중분류 선택</dt>
+            <dt  th:text="#{cate.selectCateM}"></dt>
             <dd>
                 <select class="cate_regi_sel" id="cateM" name="cateM">
                 </select>
             </dd>
         </dl>
         <dl>
-            <dt>소분류명</dt>
-            <dd><input class="cate_name" id="cateSName" name="cateSName" placeholder="Ex) 악세서리, 잡화, 식품" type="text"></dd>
+            <dt th:text="#{cateL.cateName}"></dt>
+            <dd><input class="cate_name" id="cateSName" name="cateSName"  type="text"></dd>
         </dl>
         <dl>
-            <dt>설명</dt>
+            <dt th:text="#{cateL.desc}"></dt>
             <dd>
-                <textarea id="desc"  name="desc" placeholder="Ex) 악세서리, 잡화, 식품"></textarea>
+                <textarea id="desc"  name="desc" ></textarea>
             </dd>
         </dl>
         <dl class="discnt">
-            <dt>할인율</dt>
+            <dt th:text="#{cateL.discount}"></dt>
             <dd>
                 <input class="cate_discnt" id="discount" name="discount" type="text" value="0">
                 <p class="perct">%</p>
             </dd>
         </dl>
         <dl>
-            <dt>사용여부</dt>
+            <dt th:text="#{cateL.use}"></dt>
             <dd>
                 <p class="cate_use_radio">
                     <input id="useYN1" name="useYN" type="radio" value="Y" checked>
@@ -43,8 +43,8 @@
             </dd>
         </dl>
     <div class="cate_regi_btns">
-        <a class="cancel" href="javascript:;" id="btnCancel">취소</a>
-        <a class="regist" href="javascript:;" id="btnReg">등록</a>
+        <a class="cancel" href="javascript:;" id="btnCancel" th:text="#{cateL.cancel}"></a>
+        <a class="regist" href="javascript:;" id="btnReg" th:text="#{cateL.regist}"></a>
     </div>
 </form>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>

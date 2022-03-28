@@ -7,9 +7,9 @@
         <div class="tbl_filter_wrap">
             <div class="right">
                 <select class="num_sel" id="pageSize">
-                    <option value="10">10개</option>
-                    <option value="20">20개</option>
-                    <option value="50">50개</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
                 </select>
             </div>
         </div>
@@ -26,13 +26,13 @@
                 <th>
                     <p class="tbl_chk">
                         <input id="chkAll" name="chkAll" type="checkbox">
-                        <label for="chkAll">전체선택</label>
+                        <label for="chkAll" th:text="#{cateL.chkAll}">전체선택</label>
                     </p>
                 </th>
                 <th>no</th>
-                <th class="ttl">분류명</th>
-                <th>등록일</th>
-                <th>상태변경</th>
+                <th class="ttl" th:text="#{cateL.cateName}"></th>
+                <th th:text="#{cateL.regdate}"></th>
+                <th th:text="#{cateL.status}"></th>
             </tr>
             </thead>
             <tbody id="data">
@@ -40,20 +40,25 @@
         </table>
         <!-- pager -->
         <div class="tbl_bottom">
-            <a class="btn_del" href="javascript:;" id="btnDel">삭제</a>
+            <a class="btn_del" href="javascript:;" id="btnDel" th:text="#{cateL.del}">삭제</a>
             <div class="tbl_pager">
                 <a class="btn_prev" id="pageFirst" href="javascript:;">앞으로</a>
                 <ol id="paging">
                 </ol>
                 <a class="btn_next"  id="pageLast" href="javascript:;">뒤로</a>
             </div>
-            <a class="btn_reg" href="javascript:;" id="btnReg">등록</a>
+            <a class="btn_reg" href="javascript:;" id="btnReg" th:text="#{cateL.regist}">등록</a>
         </div>
 
 
 
+        <script th:inline="javascript">
+//            var obj = ([[#{cate.cateNam}]]);
+//            console.log(obj);
 
-    <script type="text/javascript" src="/js/cateLList.js"></script>
+        </script>
+
+    <script th:inline="javascript" src="/js/cateLList.js" ></script>
     </form>
 </div>
 

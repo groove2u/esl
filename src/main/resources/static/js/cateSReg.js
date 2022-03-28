@@ -105,7 +105,7 @@ var goModify = function(productCode){
 };
 $(document).ready(function () {
 	console.log("onLoad");
-
+	getCateL();
 	$('#btnCancel').click(function(){
 		location.href='/cateSList';
 

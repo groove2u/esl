@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout_none}">
+<div class="tbl_wrap" layout:fragment="content">
+
+test
+<script th:inline="javascript">
+    var messages = new Array();
+    console.log(/*[[${keys}]]*/);
+
+</script>
+</div>
+</html>
