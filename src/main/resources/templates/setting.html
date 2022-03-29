@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div class="cate_regi_input" layout:fragment="content">
+    <form method="post" action="/modifyTag" name="frm" id="frm">
+        <div class="set_input_wrap">
+            <strong class="set_input_ttl">인디케이터 설정</strong>
+            <dl>
+                <dt>배터리</dt>
+                <dd>
+                    <input class="cate_discnt" id="" name="" type="text">
+                    <p class="perct">%</p>
+                </dd>
+            </dl>
+            <dl>
+                <dt>신호불량</dt>
+                <dd>
+                    <input class="cate_discnt" id="" name="" type="text">
+                    <p class="perct">dBm이하</p>
+                </dd>
+            </dl>
+        </div>
+        <div class="cate_regi_btns">
+            <a class="regist" href="javascript:;">저장</a>
+        </div>
+</div>
+
+</form>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/tagModify.js"></script>
+</div>
+    <!-- pager end -->
+
+</html>
