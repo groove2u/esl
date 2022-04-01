@@ -250,7 +250,7 @@ select.cate_regi_sel::-ms-expand { display:none; }
 .tag_filter_wrap div.left select { -webkit-appearance:none; appearance:none; background:url("../img/sel_arrow.png") right 13px center no-repeat #fff; border:1px solid #dee1e7; color:#005dc5; font-size:13px; font-weight:700; height:34px; margin:8px 0 0 10px; padding:0 30px 0 7px; width:130px; }
 .tag_filter_wrap div.left select::-ms-expand { display:none; }
 
-.tag_filter_wrap div.right div.stat_card { background:#fff; border:1px solid #a7bada; height:50px; margin-left:5px; padding:0 15px; width:130px; }
+.tag_filter_wrap div.right div.stat_card { background:#fff; border:1px solid #a7bada; height:50px; margin-left:5px; padding:0 15px; width:150px; }
 .tag_filter_wrap div.right div.stat_card:after { clear:both; content:""; display:block; }
 .tag_filter_wrap div.right div.stat_card > * { font-size:14px; font-weight:400; line-height:48px; }
 .tag_filter_wrap div.right div.stat_card > p { color:#000; float:left; }

@@ -40,12 +40,12 @@
         </if>
         <if test='batteryStat !=null'>
             <![CDATA[
-            and batteryStat < 20
+            and batteryStat <= (select battery from tbl_setting)
             ]]>
         </if>
         <if test='signalStat !=null'>
             <![CDATA[
-            and signalStat < 20
+            and signalStat <= (select `signal` from tbl_setting)
             ]]>
         </if>
         <if test='isCall !=null'>
@@ -125,7 +125,7 @@
     </select>
     <select id="getTagBatteryCount" parameterType="box" resultType="box">
         <![CDATA[
-        select count(*) as batteryCount from tbl_tag  where batteryStat <=20
+        select count(*) as batteryCount from tbl_tag  where batteryStat <= (select battery from tbl_setting)
         ]]>
         <if test="gatewayCode !=null and gatewayCode != 0">
             and gatewayCode = #{gatewayCode}
@@ -136,7 +136,7 @@
     </select>
     <select id="getTagSignalCount" parameterType="box" resultType="box">
         <![CDATA[
-        select count(*) as signalCount from tbl_tag  where signalStat <=20
+        select count(*) as signalCount from tbl_tag  where signalStat <= (select `signal` from tbl_setting)
         ]]>
         <if test="gatewayCode !=null and gatewayCode != 0">
             and gatewayCode = #{gatewayCode}

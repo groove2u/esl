@@ -3,7 +3,9 @@ package com.haem.esl.controller.tag;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.haem.esl.model.Box;
+import com.haem.esl.service.SettingService;
 import com.haem.esl.service.TagService;
+
 import com.haem.esl.util.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,36 +20,43 @@ import java.util.List;
 @RestController
 public class TagAjaxController {
     private Logger logger = LoggerFactory.getLogger(TagAjaxController.class);
+
     @Autowired
     TagService tagService;
-    @PostMapping(value = "/getTagList")
-    public PageInfo gettagList(@RequestBody Box param) {
 
+    @Autowired
+    SettingService settingService;
+
+    @PostMapping(value = "/getTagList")
+    public Box gettagList(@RequestBody Box param) {
         int page = param.getInt("page");
         int pageSize = param.getInt("pageSize");
+        Box returnBox = new Box();
+        List<Box> list = null;
 
         if(page == 0){
             page = 1;
-        }
+        };
+
         if(pageSize == 0){
             pageSize = 1000;
-        }
+        };
+
         PageHelper.startPage(page, pageSize);
 
-
-
-        List<Box> list = null;
-        Box returnBox = new Box();
-        //LOGGER.debug("데이터 : {}",box);
         try {
             list = tagService.getTagList(param);
-            returnBox.put("list", list);
+            List<Box> stdTagStat = settingService.getSetting();
+
             returnBox.put("status", Constant.STATUS_OK);
+            returnBox.put("list", PageInfo.of(list));
+            returnBox.put("stdTagStat", stdTagStat);
         } catch (Exception e) {
             logger.error("error",e);
             returnBox.put("status", Constant.STATUS_FAIL);
-        }
-        return PageInfo.of(list);
+        };
+
+        return returnBox;
     }
     @PostMapping(value = "/deleteTag")
     public Box deletetag(@RequestBody Box param) {

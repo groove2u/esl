@@ -1,15 +1,10 @@
 
 $(document).ready(function () {
-
-
-	console.log("onLoad");
-
 	var sendData= {
 	}
 	var curPage = 1;
 	var list;
 	var generateForm = function(f){
-
 		$.each(sendData, function(attrName, attrValue) {
 			var param = $("<input type='hidden' name='"+attrName+"' id='"+attrName+"' value='"+attrValue+"'>");
 			f.append(param);
@@ -17,9 +12,6 @@ $(document).ready(function () {
 	}
 
 	var getGatewayList = function(page){
-
-
-
 		var sendData= {
 			"page":1,
 			"pageSize" : 10000
@@ -32,9 +24,7 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
 				list = data.list;
-				console.log(data);
 				$("#gatewayCode").empty();
 
 				var option = $("<option value='0'>----선택----</option>");
@@ -57,7 +47,6 @@ $(document).ready(function () {
 					//getList(1);
 					//getTagCount();
 				});
-
 			},
 			error	: function(request,status,error){
 				console.log(error);
@@ -68,7 +57,6 @@ $(document).ready(function () {
 	};
 	getGatewayList();
 	var changeCallStat = function(tagCode,status){
-		console.log(tagCode);
 		var sendData= {
 			"tagCode":tagCode,
 			"isCall":status
@@ -81,19 +69,19 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-				console.log(data);
 				getList(curPage);
 			},
 			error	: function(request,status,error){
 				console.log(error);
 			}
-		});	}
-	var getTagCount = function(){
+		});
+	}
 
-		console.log("getTagCount");
+	var getTagCount = function(){
 		if($("#gatewayCode option:selected").val() != undefined){
 			sendData.gatewayCode = $("#gatewayCode option:selected").val();
 		}
+
 		$.ajax({
 			url			: "/getTagCount",
 			type		: "post",
@@ -101,24 +89,16 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
-				console.log(data);
-
 				var obj = data.data;
-
 				var countAll = eval(obj.countAll);
 				var countBattery = eval(obj.countBattery);
 				var countSignal = eval(obj.countSignal);
 				var countCall = eval(obj.countCall);
 
-				countAll = countAll - countBattery - countSignal - countCall;
-
-
 				$("#countAll").html(countAll);
 				$("#countBattery").html(countBattery);
 				$("#countSignal").html(countSignal);
 				$("#countCall").html(countCall);
-
 			},
 			error	: function(request,status,error){
 				console.log(error);
@@ -127,16 +107,11 @@ $(document).ready(function () {
 		});
 	};
 
-
 	getTagCount();
+
 	var getList = function(page){
-
-		console.log("getList");
 		var pageSize = $("#pageSize option:selected").val();
-
-		console.log("pageSize="+pageSize);
 		curPage = page;
-
 		var sendData= {
 			"page":page,
 			"pageSize" : pageSize
@@ -149,9 +124,11 @@ $(document).ready(function () {
 		if($("#batteryStat").val() != null && $("#batteryStat").val() != ""){
 			sendData.batteryStat = "20";
 		}
+
 		if($("#signalStat").val() != null && $("#signalStat").val() != ""){
 			sendData.signalStat = "20";
 		}
+
 		if($("#isCall").val() != null && $("#isCall").val() != ""){
 			sendData.isCall = "Y";
 		}
@@ -163,14 +140,10 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
-				console.log(data);
-
-				list = data.list;
+				list = data.list.list;
 				$("#data").empty();
 
 				for(var i=0;i<list.length;i++){
-
 					var row="";
 					row += "  <tr>";
 					row += "      <td>";
@@ -184,21 +157,19 @@ $(document).ready(function () {
 					row += "      <td>"+list[i].tagID+"</td>";
 					row += "      <td class=\"blue\">"+list[i].gatewayID+"</td>";
 
-
-					if(eval(list[i].batteryStat) < 20){
+					if(eval(list[i].batteryStat) <= data.stdTagStat[0].battery) {
 						row += "      <td><p class=\"regi_stat red\"><strong>"+list[i].batteryStat+"</strong>%</p></td>";
 					}else{
 						row += "      <td><p class=\"regi_stat green\"><strong>"+list[i].batteryStat+"</strong>%</p></td>";
 					}
 
-					console.log(list[i].connectStat);
 					if(list[i].connectStat == 'Y'){
 						row += "      <td><p class=\"regi_stat green\">정상연결</p></td>";
 					}else{
 						row += "      <td><p class=\"regi_stat red\">미연결</p></td>";
 					}
 
-					if(eval(list[i].signalStat) < 20){
+					if(eval(list[i].signalStat) <= data.stdTagStat[0].signal) {
 						row += "      <td><p class=\"regi_stat red\">"+list[i].signalStat+"%</p></td>";
 					}else{
 						row += "      <td><p class=\"regi_stat green\">"+list[i].signalStat+"%</p></td>";
@@ -222,9 +193,9 @@ $(document).ready(function () {
 
 					row += "  </tr>";
 
-
 					$("#data").append(row);
 				}
+
 				$("#data").on("click",".tbl_squr_btn", function(e){
 					var tagCode = $(this).data("code");
 					var form = $('<form></form>');
@@ -236,8 +207,8 @@ $(document).ready(function () {
 					form.append(tagCode);
 					generateForm(form);
 					form.submit();
-					console.log(tagCode)
 				});
+
 				$("#data").on("click",".use_stat", function(e){
 					if($(this).data("code") != undefined){
 						var tagCode = $(this).data("code").split("|")[0];
@@ -249,42 +220,41 @@ $(document).ready(function () {
 					}
 				});
 
-
-
-				pagination(data.navigateFirstPage,data.navigateLastPage,data.navigatepageNums,page);
+				pagination(data.list.navigateFirstPage, data.list.navigateLastPage, data.list.navigatepageNums,page);
 				getTagCount();
-
 			},
 			error	: function(request,status,error){
 				console.log(error);
 				alert("조회중 오류가 발생하였습니다.");
 			}
 		});
-
 	};
+
 	var pagination = function(firstNum,lastNum,paging,page){
-		//console.log(paging);
-
-		console.log("lastPageNum="+lastNum);
 		$("#paging").empty();
-		for(var i=0;i<paging.length;i++){
 
+		for(var i=0;i<paging.length;i++){
 			var pageNum = paging[i];
+
 			if(pageNum == page){
 				var obj = "<li><a class=\"on\" href=\"javascript:;\">"+pageNum+"</a></li>";
 			}else{
 				var obj = "<li data-page='"+pageNum+"'><a href=\"javascript:;\">"+pageNum+"</a></li>";
 			}
+
 			$("#paging").append(obj);
 		}
+
 		$("#paging li").unbind("click").bind("click",function(){
 			if($(this).data("page") != undefined){
 				getList($(this).data("page"));
 			}
 		});
+
 		$("#pageFirst").unbind("click").bind("click",function(){
 			getList(firstNum);
 		});
+
 		$("#pageLast").unbind("click").bind("click",function(){
 			getList(lastNum);
 		});
@@ -292,17 +262,15 @@ $(document).ready(function () {
 
 	$("#pageSize").on( "change", function() {
 		$("#frm").submit();
-		//getList(1);
 	});
+
 	$('#chkAll').change(function () {
 		var $this = $(this);
 		var checked = $this.prop('checked'); // checked 문자열 참조(true, false)
-		console.log(checked);
 		$('input[name="chk[]"]').prop('checked', checked);
-
 	});
-	$("#btnReg").on("click", function(e){
 
+	$("#btnReg").on("click", function(e){
 		if($("#gatewayCode option:selected").val() != '0'){
 			var gatewayCode = $("#gatewayCode option:selected").val();
 			var form = $('<form></form>');
@@ -312,16 +280,12 @@ $(document).ready(function () {
 			var gatewayCode = $("<input type='hidden' value="+gatewayCode+" name='gatewayCode'>");
 			form.append(gatewayCode);
 			form.submit();
-
-
-
 		}else{
 			alert('등록을 원하시는 게이트웨이를 선택해주세요');
-
 		}
 	});
-	$("#btnDel").on("click", function(e){
 
+	$("#btnDel").on("click", function(e){
 		var chkArray = new Array();
 
 		$("input[name='chk[]']:checked").each(function() {
@@ -332,8 +296,9 @@ $(document).ready(function () {
 		if( chkArray.length < 1 ){
 			alert("삭제할 항목을 선택해주세요.");
 			return;
-		}else{
+		} else {
 			var tagMapping = false;
+
 			for(var i=0;i<list.length;i++){
 				for(var j=0;j<chkArray.length;j++){
 					if(list[i].tagCode == chkArray[j]){
@@ -343,9 +308,8 @@ $(document).ready(function () {
 					}
 				}
 			}
+
 			if(confirm("선택한 항목을 삭제하시겠습니까?")) {
-
-
 				var str = chkArray.join(",");
 				var sendData= {
 					"arrId":str
@@ -358,58 +322,57 @@ $(document).ready(function () {
 					dataType:'json',
 					data: JSON.stringify(sendData),
 					success		: function(data){
-						console.log(data);
-
 						alert('성공적으로 삭제하였습니다.');
 						location.reload();
-
 					},
 					error	: function(request,status,error){
 						console.log(error);
 						alert("조회중 오류가 발생하였습니다.");
 					}
 				});
-
 			}
 		}
-
-		console.log(chkArray);	// (2) ["A", "B"]
 	});
 
 	getList(1);
 
-
-
 	$("#allBtn").on("click",function(){
 		getAll();
 	});
+
 	$("#batteryBtn").on("click",function(){
 		getBattery();
 	});
+
 	$("#signalBtn").on("click",function(){
 		getSignal();
 	});
+
 	$("#callBtn").on("click",function(){
 		getCall();
 	});
+
 	var getAll = function(){
 		$("#batteryStat").val(null);
 		$("#signalStat").val(null);
 		$("#isCall").val(null);
 		getList(1);
 	}
+
 	var getBattery = function(){
 		$("#batteryStat").val("20");
 		$("#signalStat").val(null);
 		$("#isCall").val(null);
 		getList(1);
 	}
+
 	var getSignal = function(){
 		$("#batteryStat").val(null);
 		$("#signalStat").val("20");
 		$("#isCall").val(null);
 		getList(1);
 	}
+
 	var getCall = function(){
 		$("#batteryStat").val(null);
 		$("#signalStat").val(null);

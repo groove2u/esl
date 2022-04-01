@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress ALL -->
+<mapper namespace="SettingMapper">
+
+    <select id="getCountSetting" resultType="int">
+        select
+            count(*)
+        from
+            tbl_setting
+    </select>
+
+    <select id="getSetting" resultType="box">
+        select
+               *
+        from
+             tbl_setting
+    </select>
+
+    <insert id="insertSetting" parameterType="box">
+        insert into
+            tbl_setting
+        values
+            (#{battery},#{signal})
+    </insert>
+
+    <update id="modifySetting" parameterType="box">
+        update tbl_setting
+        set `battery` = #{battery}, `signal` = #{signal}
+    </update>
+
+</mapper>
