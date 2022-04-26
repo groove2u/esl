@@ -34,6 +34,11 @@ public class ProductService {
         return data;
 
     }
+    public Box getProductLocation(Box box) {
+        Box data = this.sqlSession.selectOne("AdminMapper.getProductLocation", box);
+        return data;
+
+    }
 
     public int modifyProduct(Box box) {
         int result = this.sqlSession.update("AdminMapper.modifyProduct", box);

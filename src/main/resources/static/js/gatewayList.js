@@ -29,6 +29,12 @@ $(document).ready(function () {
 				$("#data").empty();
 
 				for(var i=0;i<list.length;i++){
+							if(list[i].status == "1"){
+						list[i].statusTxt = "연결";
+					}else{
+						list[i].statusTxt = "미연결";
+
+					}
 
 					var row="";
 					row +="            <tr>													";
@@ -42,7 +48,7 @@ $(document).ready(function () {
 					row +="            <td>"+list[i].gatewayID+"("+list[i].cnt+")</td>										      ";
 					row +="            <td>"+list[i].desc+"</td>										      ";
 					row +="            <td>												      ";
-					row +="                <p class=\"regi_stat\">등록(미연결)</p>					       ";
+					row +="                <p class=\"regi_stat\">등록("+list[i].statusTxt+")</p>					       ";
 					row +="            </td>												       ";
 					row +="            <td>"+list[i].location+"</td>										       ";
 					row +="            <td>"+list[i].regdate+"</td>										      ";

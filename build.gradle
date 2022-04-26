@@ -32,6 +32,22 @@ dependencies {
     }
 }
 
+jib {
+    from {
+        image = "groove2u/${project.name}:${project.version}"
+        auth {
+            username = 'groove2u'
+            password = 'skyblue12#'
+        }
+    }
+    to {
+        image = "groove2u/${project.name}:${project.version}"
+        auth {
+            username = 'groove2u'
+            password = 'skyblue12#'
+        }
+    }
+}
 test {
     useJUnitPlatform()
 }
@@ -53,7 +69,7 @@ task dockerTestRun{
         ssh.run {
             session(remotes.test) {
                 def command
-                def imageName = "${project.name}:${project.version}"
+                def imageName = "groove2u/${project.name}:${project.version}"
                 def containerName = 'esl'
                 def host = project.properties['dockerHost']
                 def buildPath = fileTree(dir: 'build').getDir()
@@ -103,7 +119,7 @@ task dockerTestRun{
                 println "\n\$ ${command}"
                 execute command, ignoreError:true
 
-                command = "docker run -e VIRTUAL_HOST=esl.tosky.co.kr -d -p ${inPort}:${outPort} --name=${containerName} ${imageName}"
+                command = "docker run -e VIRTUAL_HOST=esl.tosky.co.kr -d -p ${inPort}:${outPort} --network=esl --name=${containerName} ${imageName} "
                 println "\n\$ ${command}"
                 execute command, ignoreError:true
 

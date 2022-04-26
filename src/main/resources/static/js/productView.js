@@ -109,7 +109,7 @@ $(document).ready(function () {
 					row +="    <dl class=\"discnt\">									";
 					row +="        <dt></dt>								      ";
 					row +="        <dd>										       ";
-					row +="            <strong class=\"tag_code\">"+list[i].tagID+"("+list[i].tagID+")</strong>	      ";
+					row +="            <strong class=\"tag_code\">"+list[i].tagID+"("+list[i].gate1+":"+list[i].signal1+","+list[i].gate2+":"+list[i].signal2+","+list[i].gate3+":"+list[i].signal3+")</strong>	      ";
 					row +="            <div class=\"tag_mng_btns\">					       ";
 					row +="                <a class=\"del\" id='delMapping"+i+"' data-code='"+list[i].tagCode+"' href=\"javascript:;\">삭제</a>	      ";
 					row +="            </div>										       ";

@@ -97,8 +97,13 @@
                ifnull(c.cateLCode,'') as cateLCode,
                ifnull(c.cateMCode,'') as cateMCode,
                ifnull(c.cateSCode,'') as cateSCode,
+               gate1,
+               signal1,
+               gate2,
+               signal2,
+               gate3,
+               signal3,
                c.tagCode
-
           from tbl_tag a
           inner join tbl_gateway b on a.gatewayCode = b.gatewayCode
           left outer join (select e.productCode,productName,cateSName,tagCode,e.cateLCode,e.cateMCode,e.cateSCode from tbl_product_mapping d

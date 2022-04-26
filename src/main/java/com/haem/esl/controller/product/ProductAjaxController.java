@@ -125,4 +125,20 @@ public class ProductAjaxController {
         }
         return returnBox;
     }
+    @PostMapping(value = "/getProductLocation")
+    public Box getProductLocation(@RequestBody Box param) {
+        Box data = null;
+        Box returnBox = new Box();
+        //LOGGER.debug("데이터 : {}",box);
+        try {
+            data = productService.getProductLocation(param);
+            returnBox.put("data", data);
+            returnBox.put("status", Constant.STATUS_OK);
+        } catch (Exception e) {
+            logger.error("error",e);
+            returnBox.put("status", Constant.STATUS_FAIL);
+
+        }
+        return returnBox;
+    }
 }

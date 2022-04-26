@@ -76,7 +76,7 @@
           where a.productCode = #{productCode}
 	</select>
     <select id="getProductTagList" parameterType="box" resultType="box">
-        select b.tagCode,b.tagID from tbl_product_mapping a
+        select b.* from tbl_product_mapping a
         inner join tbl_tag b on a.tagCode = b.tagCode
         where a.productCode = #{productCode}
 	</select>
@@ -109,4 +109,10 @@
         delete from tbl_product WHERE productCode = #{productCode}
 
     </delete>
+    <select id="getProductLocation" parameterType="box" resultType="box">
+        select * from tbl_product a
+                          inner join tbl_product_mapping b on a.productCode = b.productCode
+                          inner join tbl_tag c on b.tagCode = c.tagCode
+        where a.productCode = #{productCode} and gate1 is not null
+    </select>
 </mapper>
