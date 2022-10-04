@@ -3,63 +3,60 @@ jQuery.fn.serializeObject = function() {
 	try {
 		if(this[0].tagName && this[0].tagName.toUpperCase() == "FORM" ) {
 			var arr = this.serializeArray();
-			if(arr){ obj = {};
+			if(arr) {
+				obj = {};
 				jQuery.each(arr, function() {
-					obj[this.name] = this.value; });
+					obj[this.name] = this.value;
+				});
 			}
 		}
-	}catch(e) {
+	} catch(e) {
 		alert(e.message);
-	}finally {}
+	} finally {
+	}
 	return obj;
 }
-var getData = function(){
+var getData = function() {
 	var sendData= {
 		"gatewayCode":$("#gatewayCode").val()
 	}
+
 	$.ajax({
-		url			: "/getGatewayView",
-		type		: "post",
-		contentType: 'application/json',
-		dataType:'json',
-		data: JSON.stringify(sendData),
-		success		: function(arg){
-
-			console.log(arg);
-
+		url : "/getGatewayView",
+		type : "post",
+		contentType : 'application/json',
+		dataType : 'json',
+		data : JSON.stringify(sendData),
+		success : function(arg){
 			data = arg.data;
-
 			$("#gatewayID").val(data.gatewayID);
 			$("#desc").val(data.desc);
 			$("#location").val(data.location);
 		},
-		error	: function(request,status,error){
+		error	: function(request,status,error) {
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
-
 };
-getData();
-$(document).ready(function () {
-	console.log("onLoad");
 
+getData();
+
+$(document).ready(function () {
 	$('#btnCancel').click(function(){
 		location.href='/gatewayList';
-
 	});
-
 
 	$('#btnReg').click(function(){
 		$("#frm").submit();
-
 	});
+
 	$.validator.setDefaults({
 		onkeyup: false,
 		onclick: false,
 		onfocusout: false,
-		showErrors: function(errorMap,errorList){
-			if(this.numberOfInvalids()){ // 에러가 있으면
+		showErrors: function(errorMap,errorList) {
+			if(this.numberOfInvalids()) { // 에러가 있으면
 				alert(errorList[0].message); // 경고창으로 띄움
 			}
 		}
@@ -67,12 +64,12 @@ $(document).ready(function () {
 	$("#frm").validate({
 		rules: {
 			gatewayID: {
-				required: true,
+				required: true
 			}
 		},
 		messages: {
 			gatewayID: {
-				required: '게이트웨이 아이디를 입력해주세요.'
+				required: enterGatewayId
 			}
 		},
 		submitHandler: function () {
@@ -84,11 +81,11 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/gatewayList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}

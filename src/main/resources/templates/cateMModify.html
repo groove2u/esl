@@ -3,6 +3,18 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <div class="cate_regi_input" layout:fragment="content">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let commonError = /*[[ #{message.commonError} ]]*/;
+        let defaultSelect = /*[[ #{common.defaultSelect} ]]*/;
+        let enterGatewayId = /*[[ #{message.enterGatewayId} ]]*/;
+        let registSuccess = /*[[ #{message.registSuccess} ]]*/;
+        let registFail = /*[[ #{message.registFail} ]]*/;
+        let enterName = /*[[ #{message.enterName} ]]*/;
+        let selectLargeCategory = /*[[ #{message.selectLargeCategory} ]]*/;
+
+        /*]]*/
+    </script>
     <form method="post" action="/modifycateM" name="frm" id="frm">
         <input type="hidden" name="cateMCode" id="cateMCode" th:value="${cateMCode}"/>
         <dl>

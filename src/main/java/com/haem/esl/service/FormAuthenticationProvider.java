@@ -3,6 +3,7 @@ package com.haem.esl.service;
 import com.haem.esl.model.Box;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,13 +12,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 @RequiredArgsConstructor
 @Component
 public class FormAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private AdminService adminService;
-
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -30,7 +32,7 @@ public class FormAuthenticationProvider implements AuthenticationProvider {
         String passwordFromDb = data.getString("pw");
 
         if (!password.equals(passwordFromDb)) {
-            throw new BadCredentialsException("비밀번호가 틀립니다.");
+            throw new BadCredentialsException("wrong password");
         }
 
         return new UsernamePasswordAuthenticationToken(data, null, null);

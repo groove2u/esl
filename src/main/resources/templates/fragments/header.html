@@ -7,7 +7,7 @@
 
         </div>
         <div class="lang_sel">
-            <a class="btn_logout" id="btnLogout" href="javascript:;">로그아웃</a>
+            <a class="btn_logout" id="btnLogout" href="javascript:;" th:text="#{login.logOutTxt}"></a>
         </div>
     </div>
     <form id="logoutForm" name="logoutForm" th:action="@{/logout}" method="post">

@@ -8,16 +8,9 @@ var goModify = function(productCode){
 	form.submit();
 };
 $(document).ready(function () {
-	console.log("onLoad");
-
 	var list;
 	var getList = function(page){
-
 		var pageSize = $("#pageSize option:selected").val();
-
-		console.log("pageSize="+pageSize);
-
-
 		var sendData= {
 			"page":page,
 			"pageSize" : pageSize
@@ -26,6 +19,7 @@ $(document).ready(function () {
 		if($("#cateL option:selected").val() != undefined){
 			sendData.cateLCode = $("#cateL option:selected").val();
 		}
+
 		$.ajax({
 			url			: "/getCateMList",
 			type		: "post",
@@ -33,41 +27,28 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
-				console.log(data);
-
 				list = data.list;
 				$("#data").empty();
 
 				for(var i=0;i<list.length;i++){
-
+					let regDate = list[i].regdate;
 					var row="";
-					row +="            <tr>													";
-					row +="                <td>												";
-					row +="                    <p class=\"tbl_chk\">									";
-					row +="                    <input id=\"chk"+i+"\" name=\"chk[]\" type=\"checkbox\" value='"+list[i].cateMCode+"'>				 ";
-					row +="                        <label for=\"chk"+i+"\">선택</label>							";
-					row +="                    </p>												 ";
-					row +="                </td>												 ";
-					row +="                <td>"+(((data.total - ((page-1) * pageSize))- i)) +"</td>											";
-					row +="                <td class=\"ttl\">											 ";
-					row +="                    <p class=\"link\">										";
-					row +="                        <a href=\"javascript:;\" data-code='"+list[i].cateMCode+"'>"+list[i].cateMName+"("+list[i].cnt+")</a>							 ";
-					row +="                    </p>												 ";
-					row +="                </td>												 ";
-					row +="                <td>"+list[i].regdate+"</td>										";
-					row +="                <td><a class=\"tbl_squr_btn\" data-code='"+list[i].cateMCode+"' href=\"javascript:;\">수정</a></td>		";
-					row +="            </tr>													 ";
-
-
+					row += "<tr><td><p class=\"tbl_chk\">";
+					row += "<input id=\"chk"+i+"\" name=\"chk[]\" type=\"checkbox\" value='" + list[i].cateMCode + "'>";
+					row += "<label for=\"chk" + i + "\">" + select + "</label>";
+					row += "</p></td>";
+					row += "<td>"+(((data.total - ((page-1) * pageSize))- i)) +"</td>";
+					row += "<td class=\"ttl\"><p class=\"link\">";
+					row += "<a href=\"javascript:;\" data-code='"+list[i].cateMCode+"'>"+list[i].cateMName+"("+list[i].cnt+")</a>";
+					row += "</p></td><td>";
+					row += list[i].regdate + "</td>";
+					row += "<td><a class=\"tbl_squr_btn\" data-code='"+list[i].cateMCode+"' href=\"javascript:;\">" + modify + "</a></td>";
+					row += "</tr>";
 					$("#data").append(row);
 				}
+
 				$("#data").on("click",".tbl_squr_btn", function(e){
-
 					var cateMCode = $(this).data("code");
-
-
-
 					var form = $('<form></form>');
 					form.attr('action', "/cateMModify");
 					form.attr('method', 'post');
@@ -77,11 +58,9 @@ $(document).ready(function () {
 					form.submit();
 					console.log(cateMCode)
 				});
+
 				$("#data").on("click",".link a", function(e){
 					var cateMCode = $(this).data("code");
-
-
-
 					var form = $('<form></form>');
 					form.attr('action', "/cateMModify");
 					form.attr('method', 'post');
@@ -92,14 +71,11 @@ $(document).ready(function () {
 					console.log(cateMCode)
 				});
 
-
-
 				pagination(data.navigateFirstPage,data.navigateLastPage,data.navigatepageNums,page);
-
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 
@@ -141,12 +117,10 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
 				list = data.list;
-				console.log(data);
 				$("#cateL").empty();
 
-				var option = $("<option value='0'>----선택----</option>");
+				var option = $("<option value='0'>" + defaultSelect + "</option>");
 				$("#cateL").append(option);
 				for(var i=0;i<list.length;i++){
 					var option = $("<option value='"+list[i].cateLCode+"'>"+list[i].cateLName+"</option>");
@@ -159,7 +133,7 @@ $(document).ready(function () {
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 
@@ -171,7 +145,6 @@ $(document).ready(function () {
 	$('#chkAll').change(function () {
 		var $this = $(this);
 		var checked = $this.prop('checked'); // checked 문자열 참조(true, false)
-		console.log(checked);
 		$('input[name="chk[]"]').prop('checked', checked);
 
 	});
@@ -199,7 +172,7 @@ $(document).ready(function () {
 		});
 
 		if( chkArray.length < 1 ){
-			alert("삭제할 항목을 선택해주세요.");
+			alert(selectDelete);
 			return;
 		}else{
 			var tagMapping = false;
@@ -213,12 +186,10 @@ $(document).ready(function () {
 				}
 			}
 			if(tagMapping){
-				alert('상품이 존재하는 카테고리는 삭제할수없습니다.')
+				alert(cantDeleteCategory);
 			}else{
 
-				if(confirm("선택한 항목을 삭제하시겠습니까?")) {
-
-
+				if(confirm(checkDelete)) {
 					var str = chkArray.join(",");
 					var sendData= {
 						"arrId":str
@@ -233,13 +204,13 @@ $(document).ready(function () {
 						success		: function(data){
 							console.log(data);
 
-							alert('성공적으로 삭제하였습니다.');
+							alert(deleteSuccess);
 							location.reload();
 
 						},
 						error	: function(request,status,error){
 							console.log(error);
-							alert("조회중 오류가 발생하였습니다.");
+							alert(commonError);
 						}
 					});
 

@@ -3,15 +3,13 @@
 <mapper namespace="AdminMapper">
 
     <select id="getCateMList" parameterType="box" resultType="box">
-
-
         select a.cateMCode,
         a.cateMName,
         a.`desc`,
         a.discount,
         a.useYN,
         a.cateLCode,
-        a.regdate,
+        DATE_FORMAT(a.regdate, "%Y-%m-%d") as regdate,
         ifnull(b.cnt,0) as cnt
         from tbl_catem a
         left outer join (select count(*) as cnt,cateMCode from tbl_product a group by a.cateMCode) b on a.cateMCode = b.cateMCode

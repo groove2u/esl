@@ -19,6 +19,7 @@ var getData = function(){
 	var sendData= {
 		"cateSCode":$("#cateSCode").val()
 	}
+
 	$.ajax({
 		url			: "/getcateSView",
 		type		: "post",
@@ -26,9 +27,6 @@ var getData = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(arg){
-
-			console.log(arg);
-
 			data = arg.data;
 			cateLCode = data.cateLCode;
 			cateMCode = data.cateMCode;
@@ -45,7 +43,7 @@ var getData = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
@@ -56,22 +54,18 @@ var getCateL = function(){
 	var sendData= {
 	};
 	$.ajax({
-		url			: "/getCateLList",
-		type		: "post",
+		url : "/getCateLList",
+		type : "post",
 		contentType: 'application/json',
-		dataType:'json',
-		data: JSON.stringify(sendData),
-		success		: function(data){
-
+		dataType : 'json',
+		data : JSON.stringify(sendData),
+		success : function(data){
 			list = data.list;
-			console.log(data);
 			$("#cateL").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateL").append(option);
 			for(var i=0;i<list.length;i++){
-
-				//console.log(eval($("#cateLCode").val()) +","+ list[i].cateLCode);
 				if(eval(cateLCode) == list[i].cateLCode){
 					var option = $("<option value='"+list[i].cateLCode+"' selected>"+list[i].cateLName+"</option>");
 				}else{
@@ -82,31 +76,30 @@ var getCateL = function(){
 			}
 			getCateM();
 		},
-		error	: function(request,status,error){
+		error : function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
-
 };
+
 getCateL();
-var getCateM = function(){
+
+var getCateM = function() {
 	var sendData= {
 		"cateLCode":$("#cateL option:selected").val()
 	};
+
 	$.ajax({
-		url			: "/getCateMList",
-		type		: "post",
-		contentType: 'application/json',
-		dataType:'json',
-		data: JSON.stringify(sendData),
-		success		: function(data){
-
+		url : "/getCateMList",
+		type : "post",
+		contentType : 'application/json',
+		dataType : 'json',
+		data : JSON.stringify(sendData),
+		success	: function(data){
 			list = data.list;
-			console.log(data);
 			$("#cateM").empty();
-
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateM").append(option);
 			for(var i=0;i<list.length;i++){
 
@@ -124,7 +117,7 @@ var getCateM = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
@@ -140,18 +133,14 @@ var goModify = function(productCode){
 	form.submit();
 };
 $(document).ready(function () {
-	console.log("onLoad");
-
 	$('#btnCancel').click(function(){
 		location.href='/cateSList';
-
 	});
-
 
 	$('#btnReg').click(function(){
 		$("#frm").submit();
-
 	});
+
 	$.validator.setDefaults({
 		onkeyup: false,
 		onclick: false,
@@ -162,6 +151,7 @@ $(document).ready(function () {
 			}
 		}
 	});
+
 	$("#frm").validate({
 		rules: {
 			cateLName: {
@@ -170,13 +160,13 @@ $(document).ready(function () {
 		},
 		messages: {
 			cateLName: {
-				required: '명칭을 입력해주세요.'
+				required: enterName
 			}
 		},
 		submitHandler: function () {
 
 			if(eval($("#cateM").val()) == 0 ){
-				alert('중분류를 선택해주세요.');
+				alert(selectMiddleCategory);
 				return false;
 			}
 			model_data = $("#frm").serializeObject();
@@ -187,11 +177,11 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/cateSList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}

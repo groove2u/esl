@@ -29,12 +29,10 @@ var getCateL = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
 			list = data.list;
-			console.log(data);
 			$("#cateL").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateL").append(option);
 			for(var i=0;i<list.length;i++){
 				if(list[i].cateLCode == cateLCode){
@@ -55,7 +53,7 @@ var getCateL = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
@@ -73,12 +71,10 @@ var getCateM = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
 			list = data.list;
-			console.log(data);
 			$("#cateM").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateM").append(option);
 			for(var i=0;i<list.length;i++){
 				if(list[i].cateMCode == cateMCode) {
@@ -98,7 +94,7 @@ var getCateM = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
@@ -114,12 +110,10 @@ var getCateS = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
 			list = data.list;
-			console.log(data);
 			$("#cateS").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateS").append(option);
 			for(var i=0;i<list.length;i++){
 				if(list[i].cateSCode == cateSCode) {
@@ -141,13 +135,12 @@ var getCateS = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
 };
 var getProductList = function(page){
-
 	var sendData= {
 		"page":1,
 		"pageSize" : 10000000
@@ -156,14 +149,14 @@ var getProductList = function(page){
 	if($("#cateL option:selected").val() != undefined){
 		sendData.cateL = $("#cateL option:selected").val();
 	}
+
 	if($("#cateM option:selected").val() != undefined){
 		sendData.cateM = $("#cateM option:selected").val();
 	}
+
 	if($("#cateS option:selected").val() != undefined){
 		sendData.cateS = $("#cateS option:selected").val();
 	}
-	console.log(sendData);
-
 
 	$.ajax({
 		url			: "/getProductList",
@@ -172,16 +165,10 @@ var getProductList = function(page){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
-			console.log(data);
-
-
-
 			list = data.list;
-			console.log(data);
 			$("#productCode").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#productCode").append(option);
 			for(var i=0;i<list.length;i++){
 				if(list[i].productCode == productCode) {
@@ -192,15 +179,14 @@ var getProductList = function(page){
 
 				$("#productCode").append(option);
 			}
-
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
-
 };
+
 var getGatewayInfo = function(){
 	var sendData= {
 		"gatewayCode":$("#gatewayCode").val()
@@ -212,32 +198,26 @@ var getGatewayInfo = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
-			console.log(data);
-			var val = data.data;
-			$("#gatewayID").val(val.gatewayID);
+			$("#gatewayID").val(data.data.gatewayID);
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
-
 };
-getGatewayInfo();
-$(document).ready(function () {
-	console.log("onLoad");
 
+getGatewayInfo();
+
+$(document).ready(function () {
 	$('#btnCancel').click(function(){
 		location.href='/tagList';
-
 	});
-
 
 	$('#btnReg').click(function(){
 		$("#frm").submit();
-
 	});
+
 	$.validator.setDefaults({
 		onkeyup: false,
 		onclick: false,
@@ -248,6 +228,7 @@ $(document).ready(function () {
 			}
 		}
 	});
+
 	$("#frm").validate({
 		rules: {
 			tagID: {
@@ -256,7 +237,7 @@ $(document).ready(function () {
 		},
 		messages: {
 			tagID: {
-				required: '태그코드를 입력해주세요.'
+				required: enterTagCode
 			}
 		},
 		submitHandler: function () {
@@ -268,11 +249,11 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/tagList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}

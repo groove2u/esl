@@ -27,14 +27,14 @@ public class CateLController {
     public String cateLList(Locale locale, Model model, HttpServletRequest request){
 
         logger.debug("cateLList");
-        model.addAttribute("title", messageSource.getMessage("cateL.list", null, null));
+        model.addAttribute("title", messageSource.getMessage("cateL.list", null, locale));
         return "cateLList";
     }
     @RequestMapping(value = "/cateLReg")
     public String cateLReg(Locale locale, Model model, HttpServletRequest request){
 
         logger.debug("cateLReg");
-        model.addAttribute("title", messageSource.getMessage("cateL.reg", null, null));
+        model.addAttribute("title", messageSource.getMessage("cateL.reg", null, locale));
         return "cateLReg";
     }
     @RequestMapping(value = "/cateLModify")
@@ -42,7 +42,7 @@ public class CateLController {
 
         logger.debug("cateLModify");
         Box box = MapUtil.getMap(request);
-        model.addAttribute("title", messageSource.getMessage("cateL.mod", null, null));
+        model.addAttribute("title", messageSource.getMessage("cateL.mod", null, locale));
         model.addAttribute("cateLCode", box.getString("cateLCode"));
         return "cateLModify";
     }

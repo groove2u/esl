@@ -3,24 +3,31 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <div class="cate_regi_input" layout:fragment="content">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let enterGatewayId = /*[[ #{message.enterGatewayId} ]]*/;
+        let registFail = /*[[ #{message.registFail} ]]*/;
+        let registSuccess = /*[[ #{message.registSuccess} ]]*/;
+        /*]]*/
+    </script>
     <form method="post" action="/insertCateL" name="frm" id="frm">
         <dl>
-            <dt>아이디</dt>
-            <dd><input class="cate_name" id="gatewayID" name="gatewayID" placeholder="Ex) 악세서리, 잡화, 식품" type="text"></dd>
+            <dt th:text="#{login.id}"></dt>
+            <dd><input type="text" id="gatewayID" class="cate_name" name="gatewayID" th:placeholder="#{gateway.ex}"></dd>
         </dl>
         <dl>
-            <dt>위치</dt>
-            <dd><input class="cate_name" id="location" name="location" placeholder="Ex) 악세서리, 잡화, 식품" type="text"></dd>
+            <dt th:text="#{gateway.location}"></dt>
+            <dd><input class="cate_name" id="location" name="location" th:placeholder="#{gateway.ex}" type="text"></dd>
         </dl>
         <dl>
-            <dt>설명</dt>
+            <dt th:text="#{cateL.desc}"></dt>
             <dd>
-                <textarea id="desc" name="desc" placeholder="Ex) 악세서리, 잡화, 식품"></textarea>
+                <textarea id="desc" name="desc" th:placeholder="#{gateway.ex}"></textarea>
             </dd>
         </dl>
     <div class="cate_regi_btns">
-        <a class="cancel" href="javascript:;" id="btnCancel">취소</a>
-        <a class="regist" href="javascript:;" id="btnReg">등록</a>
+        <a class="cancel" href="javascript:;" id="btnCancel" th:text="#{cateL.cancel}"></a>
+        <a class="regist" href="javascript:;" id="btnReg" th:text="#{cateL.regist}"></a>
     </div>
 </form>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>

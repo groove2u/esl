@@ -1,11 +1,10 @@
 $(document).ready(function () {
 	$('#submit').click(function(){
 		$("#frm").submit();
-
 	});
+
 	$('#btnConfirm').click(function(){
 		$(".layer_pop").hide();
-
 	});
 
 	$.validator.setDefaults({
@@ -18,6 +17,7 @@ $(document).ready(function () {
 			}
 		}
 	});
+
 	$("#frm").validate({
 		rules: {
 			id: {
@@ -29,10 +29,10 @@ $(document).ready(function () {
 		},
 		messages: {
 			id: {
-				required: '아이디를 입력해주세요.'
+				required: enterId
 			},
 			password: {
-				required: '패스워드를 입력해주세요.'
+				required: enterPassword
 			}
 		},
 		submitHandler: function (form) {

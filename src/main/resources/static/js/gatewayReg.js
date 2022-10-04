@@ -15,13 +15,9 @@ jQuery.fn.serializeObject = function() {
 }
 
 $(document).ready(function () {
-	console.log("onLoad");
-
 	$('#btnCancel').click(function(){
 		location.href='/gatewayList';
-
 	});
-
 
 	$('#btnReg').click(function(){
 		$("#frm").submit();
@@ -37,6 +33,7 @@ $(document).ready(function () {
 			}
 		}
 	});
+
 	$("#frm").validate({
 		rules: {
 			gatewayID: {
@@ -45,7 +42,7 @@ $(document).ready(function () {
 		},
 		messages: {
 			gatewayID: {
-				required: '게이트웨이 아이디를 입력해주세요.'
+				required: enterGatewayId
 			}
 		},
 		submitHandler: function () {
@@ -57,15 +54,14 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/gatewayList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}
 	});
-
 });
 

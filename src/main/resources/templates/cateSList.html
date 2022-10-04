@@ -3,6 +3,19 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <div class="tbl_wrap" layout:fragment="content">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let select = /*[[ #{common.select} ]]*/;
+        let modify = /*[[ #{cateL.modify} ]]*/;
+        let commonError = /*[[ #{message.commonError} ]]*/;
+        let defaultSelect = /*[[ #{common.defaultSelect} ]]*/;
+        let selectDelete = /*[[ #{message.selectDelete} ]]*/;
+        let cantDeleteCategory = /*[[ #{message.cantDeleteCategory} ]]*/;
+        let checkDelete = /*[[ #{message.checkDelete} ]]*/;
+        let deleteSuccess = /*[[ #{message.deleteSuccess} ]]*/;
+
+        /*]]*/
+    </script>
     <form id="frm" name="frm" method="post">
         <div class="tbl_filter_wrap">
             <div class="left">
@@ -17,9 +30,9 @@
             </div>
             <div class="right">
                 <select class="num_sel" id="pageSize">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
+                    <option value="10" th:text="#{common.10ea}"></option>
+                    <option value="20" th:text="#{common.20ea}"></option>
+                    <option value="50" th:text="#{common.50ea}"></option>
                 </select>
             </div>
         </div>
@@ -36,7 +49,7 @@
                 <th>
                     <p class="tbl_chk">
                         <input id="chkAll" name="chkAll" type="checkbox">
-                        <label for="chkAll">전체선택</label>
+                        <label for="chkAll" th:text="#{cateL.chkAll}"></label>
                     </p>
                 </th>
                 <th>no</th>
@@ -50,19 +63,15 @@
         </table>
         <!-- pager -->
         <div class="tbl_bottom">
-            <a class="btn_del" href="javascript:;" id="btnDel"th:text="#{cateL.del}">삭제</a>
+            <a class="btn_del" href="javascript:;" id="btnDel" th:text="#{cateL.delete}"></a>
             <div class="tbl_pager">
-                <a class="btn_prev" id="pageFirst" href="javascript:;"></a>
+                <a class="btn_prev" id="pageFirst" href="javascript:;" th:text="#{common.forward}"></a>
                 <ol id="paging">
                 </ol>
-                <a class="btn_next"  id="pageLast" href="javascript:;">뒤로</a>
+                <a class="btn_next"  id="pageLast" href="javascript:;" th:text="#{common.backward}"></a>
             </div>
             <a class="btn_reg" href="javascript:;" id="btnReg"th:text="#{cateL.regist}"></a>
         </div>
-
-
-
-
     <script type="text/javascript" src="/js/cateSList.js"></script>
     </form>
 </div>

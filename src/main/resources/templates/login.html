@@ -7,28 +7,35 @@
 		<meta http-equiv="Content-Script-Type" content="text/javascript">
 		<meta http-equiv="Content-Style-Type" content="text/css">
 
-		<title></title>
+		<title th:text="#{login.adminPageTxt}"></title>
 		<link rel="stylesheet" type="text/css" href="/css/reset.css">
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
 
 		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			let enterId = /*[[ #{login.enterId} ]]*/;
+			let enterPassword = /*[[ #{login.enterPassword} ]]*/;
+			/*]]*/
+		</script>
 	</head>
 
 	<body class="login_bg">
 		<!-- 오류팝업 -->
 		<div class="layer_pop alert" th:if="${param.error}">
-			<p>아이디 및 비밀번호가 올바르지 않습니다.</p>
-			<a href="javascript:;" id="btnConfirm">확인</a>
+			<p th:text="#{login.wrongIdPassword}"></p>
+			<a href="javascript:;" id="btnConfirm" th:text="#{common.confirm}"></a>
 		</div>
 		<!-- 오류팝업 end -->
 		<div id="wrap">
 			<form id="frm" name="frm" th:action="@{/login_proc}" method="post">
 				<fieldset class="login_wrap">
-					<h1>주식회사 하엠</h1>
+					<h1></h1>
 					<h2><div th:text="#{login.adminPageTxt}" /><strong th:text="#{login.loginTxt}"></strong></h2>
 					<div class="input_wrap">
-						<input id="id" name="id" placeholder="아이디" type="text">
-						<input class="mt18" id="password" name="password" placeholder="비밀번호" type="password">
+						<input type="text" id="id" name="id" th:placeholder="#{login.id}">
+						<input type="password" id="password" name="password" class="mt18" th:placeholder="#{login.password}">
 						<a class="btn_login" id="submit" href="javascript:;" th:text="#{login.loginTxt}"></a>
 						<p class="login_guide"><span th:text="#{login.loginProblem}" /> <br/><span th:text="#{login.askAdmin}"></span></p>
 					</div>

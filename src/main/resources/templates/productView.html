@@ -2,90 +2,94 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
+
 <div class="cate_regi_input" layout:fragment="content">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let noTag = /*[[ #{message.noTag} ]]*/;
+        let tooManyTags = /*[[ #{message.tooManyTags} ]]*/;
+        let commonError = /*[[ #{message.commonError} ]]*/;
+        let enterTagCode = /*[[ #{message.enterTagCode} ]]*/;
+        let selectItem = /*[[ #{message.selectItem} ]]*/;
+        let checkRegistTag = /*[[ #{message.checkRegistTag} ]]*/;
+        let regist = /*[[ #{cateL.regist} ]]*/;
+        let registSuccess = /*[[ #{message.registSuccess} ]]*/;
+        let registFail = /*[[ #{message.registFail} ]]*/;
+        let manageTag = /*[[ #{lnb.manageTag} ]]*/;
+        let erase = /*[[ #{cateL.delete} ]]*/;
+        let deleteSuccess = /*[[ #{message.deleteSuccess} ]]*/;
+        let checkDelete = /*[[ #{message.checkDelete} ]]*/;
+        let defaultSelect = /*[[ #{common.defaultSelect} ]]*/;
+        let enterProductName = /*[[ #{message.enterProductName} ]]*/;
+        let enterPrice = /*[[ #{message.enterPrice} ]]*/;
+        /*]]*/
+    </script>
     <!-- 태그 등록 -->
     <div class="layer_pop with_ttl tag_reg" id="tagReg" style="display:none;width:730px">
         <div class="layer_pop_ttl">
-            <strong>태그 등록</strong>
-            <a class="layer_close" href="javascript:;" id="btnClose">닫기</a>
+            <strong th:text="#{tag.regist}"></strong>
+            <a class="layer_close" href="javascript:;" id="btnClose" th:text="#{common.close}"></a>
         </div>
         <div class="reg_tag_list">
-            <p class="sel_regd_tag">
-                등록된 태그 선택
-                <a href="javascript:;" id="btnTagList">태그목록</a>
+            <p class="sel_regd_tag" >
+                <span th:text="#{tag.selectTag}"></span>
+                <a href="javascript:;" id="btnTagList" th:text="#{tag.list}"></a>
             </p>
             <div class="tag_search">
-                <input id="tagID" name="tagID" placeholder="태그코드검색" type="text">
-                <input id="searchTag" name="searchTag" type="submit" value="검색">
+                <input type="text" id="tagID" name="tagID" th:placeholder="#{tag.searchTag}">
+                <input type="submit" id="searchTag" name="searchTag" th:value="#{common.search}">
             </div>
             <ul id="tagList">
             </ul>
         </div>
         <div class="layer_pop_btns">
-            <a class="blue regist" href="javascript:;" id="btnRegTag">등록</a>
+            <a class="blue regist" href="javascript:;" id="btnRegTag" th:text="#{cateL.regist}"></a>
         </div>
     </div>
     <!-- 태그 등록 end -->
     <form method="post" action="/ProductModify" name="frm" id="frm">
         <input type="hidden" name="productCode" id="productCode" th:value="${productCode}"/>
     <dl class="discnt">
-        <dt>대분류</dt>
+        <dt th:text="#{cateL}"></dt>
         <dd>
             <select class="cate_regi_sel" id="cateL" name="cateL">
-                <option>맥주</option>
+<!--                <option>맥주</option>-->
             </select>
         </dd>
     </dl>
     <dl class="discnt">
-        <dt>중분류</dt>
+        <dt th:text="#{cateM}"></dt>
         <dd>
             <select class="cate_regi_sel" id="cateM" name="cateM">
-                <option>보리맥주</option>
+<!--                <option>보리맥주</option>-->
             </select>
         </dd>
     </dl>
     <dl class="discnt">
-        <dt>소분류</dt>
+        <dt th:text="#{cateS}"></dt>
         <dd>
             <select class="cate_regi_sel" id="cateS" name="cateS">
-                <option>소분류</option>
+<!--                <option>소분류</option>-->
             </select>
         </dd>
     </dl>
     <dl>
-        <dt>상품명</dt>
+        <dt th:text="#{tag.name}"></dt>
         <dd><input class="cate_name" id="productName" name="productName" placeholder="Ex) Maxx, Hitte" type="text"></dd>
     </dl>
-    <!--
     <dl>
-        <dt>상품 URL</dt>
-        <dd><input class="cate_name" id="" name="" placeholder="Ex) " type="text"></dd>
-    </dl>
-    <dl>
-        <dt>상품 코드</dt>
-        <dd>
-            <input class="prod_serial" id="" name="" placeholder="일련번호(숫자) 작성" type="text">
-            <a class="find_serial" href="javascript:;">찾아보기</a>
-        </dd>
-    </dl>
-    <dl class="discnt">
-        <dt>QR코드</dt>
-        <dd><a class="find_serial" href="javascript:;">찾아보기</a></dd>
-    </dl>
-    -->
-    <dl>
-        <dt>가격</dt>
+        <dt th:text="#{product.price}"></dt>
         <dd><input class="prod_price" id="price" name="price" placeholder="" type="text"></dd>
     </dl>
     <dl class="discnt">
-        <dt>할인율</dt>
+        <dt th:text="#{cateL.discount}"></dt>
         <dd>
             <input class="cate_discnt" id="discount" name="discount" type="text">
             <p class="perct">%</p>
         </dd>
     </dl>
     <dl class="discnt">
-        <dt>할인기간</dt>
+        <dt th:text="#{cateL.discountPeriod}"></dt>
         <dd>
             <input class="cate_discnt" id="saleStart" name="saleStart" type="text">
             <p class="wave">~</p>
@@ -93,11 +97,11 @@
         </dd>
     </dl>
     <dl class="discnt">
-        <dt>묶음할인</dt>
+        <dt th:text="#{product.bundle}"></dt>
         <dd>
             <p class="cate_use_radio">
                 <input id="bundle1" name="bundle" type="radio" value="0">
-                <label for="bundle1">없음</label>
+                <label for="bundle1" th:text="#{product.nodiscount}"></label>
             </p>
             <p class="cate_use_radio">
                 <input id="bundle2" name="bundle" type="radio" value="1">
@@ -111,22 +115,22 @@
     </dl>
 
     <dl>
-        <dt>설명</dt>
+        <dt th:text="#{cateL.desc}"></dt>
         <dd>
-            <textarea placeholder="Ex) 100g 당 200원, 1EA당 500원" id="desc" name="desc"></textarea>
+            <textarea placeholder="Ex) 200원 / 100g, 1$ / 1ea" id="desc" name="desc"></textarea>
         </dd>
     </dl>
         <div id="data">
         </div>
     <dl class="discnt">
-        <dt>상품위치</dt>
+        <dt th:text="#{product.location}"></dt>
         <dd>
             <input class="cate_discnt" id="position" name="position" type="text">
         </dd>
     </dl>
     <div class="cate_regi_btns">
-        <a class="cancel" href="javascript:;" id="cancel">취소</a>
-        <a class="regist" href="javascript:;" id="submit">등록</a>
+        <a class="cancel" href="javascript:;" id="cancel" th:text="#{cateL.cancel}"></a>
+        <a class="regist" href="javascript:;" id="submit" th:text="#{cateL.modify}"></a>
     </div>
 
     </form>

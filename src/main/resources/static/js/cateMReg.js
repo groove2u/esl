@@ -25,16 +25,12 @@ var getCateL = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
 			list = data.list;
-			console.log(data);
 			$("#cateL").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateL").append(option);
 			for(var i=0;i<list.length;i++){
-
-				//console.log(eval($("#cateLCode").val()) +","+ list[i].cateLCode);
 				if(eval($("#cateLCode").val()) == list[i].cateLCode){
 					var option = $("<option value='"+list[i].cateLCode+"' selected>"+list[i].cateLName+"</option>");
 				}else{
@@ -46,14 +42,13 @@ var getCateL = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
 };
 getCateL();
 var goModify = function(productCode){
-//	alert(productCode);
 	var form = $('<form></form>');
 	form.attr('action', "/productView");
 	form.attr('method', 'post');
@@ -63,18 +58,14 @@ var goModify = function(productCode){
 	form.submit();
 };
 $(document).ready(function () {
-	console.log("onLoad");
-
 	$('#btnCancel').click(function(){
 		location.href='/cateMList';
-
 	});
-
 
 	$('#btnReg').click(function(){
 		$("#frm").submit();
-
 	});
+
 	$.validator.setDefaults({
 		onkeyup: false,
 		onclick: false,
@@ -85,6 +76,7 @@ $(document).ready(function () {
 			}
 		}
 	});
+
 	$("#frm").validate({
 		rules: {
 			cateMName: {
@@ -94,15 +86,15 @@ $(document).ready(function () {
 
 		messages: {
 			cateMName: {
-				required: '명칭을 입력해주세요.'
+				required: enterName
 			}
 		},
 		submitHandler: function () {
-
 			if(eval($("#cateL").val()) == 0 ){
-				alert('대분류를 선택해주세요.');
+				alert(selectLargeCategory);
 				return false;
 			}
+
 			model_data = $("#frm").serializeObject();
 			$.ajax({
 				url: "/insertCateM",
@@ -111,11 +103,11 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/cateMList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}

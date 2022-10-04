@@ -3,26 +3,38 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <div class="cate_regi_input" layout:fragment="content">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let commonError = /*[[ #{message.commonError} ]]*/;
+        let noData = /*[[ #{message.noData} ]]*/;
+        let enterBattery = /*[[ #{message.enterBattery} ]]*/;
+        let enterBatteryRange = /*[[ #{message.enterBatteryRange} ]]*/;
+        let enterSignal = /*[[ #{message.enterSignal} ]]*/;
+        let enterSignalRange = /*[[ #{message.enterSignalRange} ]]*/;
+        let processFail = /*[[ #{message.processFail} ]]*/;
+        let registSuccess = /*[[ #{message.registSuccess} ]]*/;
+        /*]]*/
+    </script>
     <form method="post" action="/modifySetting" name="frm" id="frm">
         <div class="set_input_wrap">
-            <strong class="set_input_ttl">인디케이터 설정</strong>
+            <strong class="set_input_ttl" th:text="#{setting.setIndicator}"></strong>
             <dl>
-                <dt>배터리</dt>
+                <dt th:text="#{setting.battery}"></dt>
                 <dd>
                     <input class="cate_discnt" id="battery" name="battery" type="text">
                     <p class="perct">%</p>
                 </dd>
             </dl>
             <dl>
-                <dt>신호불량</dt>
+                <dt th:text="#{setting.badSignal}"></dt>
                 <dd>
                     <input class="cate_discnt" id="signal" name="signal" type="text">
-                    <p class="perct">dBm 이하</p>
+                    <p class="perct" th:text="#{setting.underSignal}"></p>
                 </dd>
             </dl>
         </div>
         <div class="cate_regi_btns">
-            <a class="regist" href="javascript:;" id="btnReg">저장</a>
+            <a class="regist" href="javascript:;" id="btnReg" th:text="#{common.save}"></a>
         </div>
     </form>
 

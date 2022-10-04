@@ -18,9 +18,7 @@ var cateMCode;
 var cateSCode;
 var productCode;
 
-var getData = function(){
-
-	console.log($("#param").val());
+var getData = function() {
 	var sendData= {
 		"tagCode":$("#tagCode").val()
 	}
@@ -31,12 +29,7 @@ var getData = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(arg){
-
-			console.log(arg);
-
 			data = arg.data;
-
-
 			cateLCode = data.cateLCode;
 			cateMCode = data.cateMCode;
 			cateSCode = data.cateSCode;
@@ -55,14 +48,15 @@ var getData = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
 };
+
 getData();
 
-var getCateL = function(){
+var getCateL = function() {
 	var sendData= {
 	};
 	$.ajax({
@@ -72,12 +66,9 @@ var getCateL = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
 			list = data.list;
-			console.log(data);
 			$("#cateL").empty();
-
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateL").append(option);
 			for(var i=0;i<list.length;i++){
 				if(list[i].cateLCode == cateLCode){
@@ -85,25 +76,25 @@ var getCateL = function(){
 				}else{
 					var option = $("<option value='"+list[i].cateLCode+"'>"+list[i].cateLName+"</option>");
 				}
-
 				$("#cateL").append(option);
 			}
 
 			if($("#cateL option:selected").val() != 0){
 				getCateM();
 			}
+
 			$("#cateL").on( "change", function() {
 				getCateM();
 			});
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
-
 };
-var getCateM = function(){
+
+var getCateM = function() {
 	var sendData= {
 		"cateLCode":$("#cateL option:selected").val()
 	};
@@ -119,7 +110,7 @@ var getCateM = function(){
 			console.log(data);
 			$("#cateM").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateM").append(option);
 			for(var i=0;i<list.length;i++){
 				if(list[i].cateMCode == cateMCode) {
@@ -139,11 +130,12 @@ var getCateM = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
 };
+
 var getCateS = function(){
 	var sendData= {
 		"cateMCode":$("#cateM option:selected").val()
@@ -160,7 +152,7 @@ var getCateS = function(){
 			console.log(data);
 			$("#cateS").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateS").append(option);
 			for(var i=0;i<list.length;i++){
 				if(list[i].cateSCode == cateSCode) {
@@ -182,13 +174,13 @@ var getCateS = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
 };
-var getProductList = function(page){
 
+var getProductList = function(page){
 	var sendData= {
 		"page":1,
 		"pageSize" : 10000000
@@ -197,14 +189,14 @@ var getProductList = function(page){
 	if($("#cateL option:selected").val() != undefined){
 		sendData.cateL = $("#cateL option:selected").val();
 	}
+
 	if($("#cateM option:selected").val() != undefined){
 		sendData.cateM = $("#cateM option:selected").val();
 	}
+
 	if($("#cateS option:selected").val() != undefined){
 		sendData.cateS = $("#cateS option:selected").val();
 	}
-	console.log(sendData);
-
 
 	$.ajax({
 		url			: "/getProductList",
@@ -213,16 +205,10 @@ var getProductList = function(page){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
-			console.log(data);
-
-
-
 			list = data.list;
-			console.log(data);
 			$("#productCode").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#productCode").append(option);
 			for(var i=0;i<list.length;i++){
 				if(list[i].productCode == productCode) {
@@ -237,20 +223,16 @@ var getProductList = function(page){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
 };
 
 $(document).ready(function () {
-	console.log("onLoad");
-
-	$('#btnCancel').click(function(){
+	$('#btnCancel').click(function() {
 		location.href='/tagList?';
-
 		var url = "/tagList?";
-
 		url = url + "gatewayCode=" + $("#gatewayCode").val()+"&";
 		url = url + "signalStat=" + $("#signalStat").val()+"&";
 		url = url + "batteryStat=" + $("#batteryStat").val()+"&";
@@ -258,14 +240,13 @@ $(document).ready(function () {
 		url = url + "pageSize=" + $("#pageSize").val()+"&";
 
 		location.href=url;
-
 	});
-
 
 	$('#btnReg').click(function(){
 		$("#frm").submit();
 
 	});
+
 	$.validator.setDefaults({
 		onkeyup: false,
 		onclick: false,
@@ -276,6 +257,7 @@ $(document).ready(function () {
 			}
 		}
 	});
+
 	$("#frm").validate({
 		rules: {
 			tagID: {
@@ -284,7 +266,7 @@ $(document).ready(function () {
 		},
 		messages: {
 			tagID: {
-				required: '게이트웨이 아이디를 입력해주세요.'
+				required: enterGatewayId
 			}
 		},
 		submitHandler: function () {
@@ -296,11 +278,11 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/tagList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}

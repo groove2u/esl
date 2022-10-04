@@ -12,7 +12,6 @@ public class LoginController {
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
     @RequestMapping(value = "/")
     public String home(){
-
         return "redirect:/cateLList";
     }
 

@@ -29,7 +29,6 @@ var goModify = function(productCode){
 	form.submit();
 };
 $(document).ready(function () {
-	console.log("onLoad");
 	var getData = function(){
 		var sendData= {
 			"productCode":$("#productCode").val()
@@ -41,9 +40,6 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(arg){
-
-				console.log(arg);
-
 				data = arg.data;
 				cateLCode = data.cateLCode;
 				cateMCode = data.cateMCode;
@@ -69,7 +65,7 @@ $(document).ready(function () {
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 
@@ -85,45 +81,39 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
-				console.log(data);
-
 				list = data.list;
 				$("#list").empty();
-				var row="";
-				row +="    <dl class=\"discnt\">									";
-				row +="        <dt>태그관리</dt>								      ";
-				row +="        <dd>										       ";
-				row +="            <div class=\"tag_mng_btns\">					       ";
-				row +="                <a class=\"reg\" id=\"tagRegBtn\" href=\"javascript:;\">등록</a>	       ";
-				row +="            </div>										       ";
-				row +="        </dd>										       ";
-				row +="    </dl>											       ";
+				var row = "";
+				row += "<dl class=\"discnt\">";
+				row += "<dt>" + manageTag + "</dt>";
+				row += "<dd>";
+				row += "<div class=\"tag_mng_btns\">";
+				row += "<a class=\"reg\" id=\"tagRegBtn\" href=\"javascript:;\">" + regist + "</a>";
+				row += "</div>";
+				row += "</dd>";
+				row += "</dl>";
 				$("#data").append(row);
+
 				$('#tagRegBtn').on('click', function(event) {
 					$("#tagReg").show();
 				});
 
 				for(var i=0;i<list.length;i++){
-					var row="";
-					row +="    <dl class=\"discnt\">									";
-					row +="        <dt></dt>								      ";
-					row +="        <dd>										       ";
-					row +="            <strong class=\"tag_code\">"+list[i].tagID+"("+list[i].gate1+":"+list[i].signal1+","+list[i].gate2+":"+list[i].signal2+","+list[i].gate3+":"+list[i].signal3+")</strong>	      ";
-					row +="            <div class=\"tag_mng_btns\">					       ";
-					row +="                <a class=\"del\" id='delMapping"+i+"' data-code='"+list[i].tagCode+"' href=\"javascript:;\">삭제</a>	      ";
-					row +="            </div>										       ";
-					row +="        </dd>										       ";
-					row +="    </dl>											       ";
+					var row = "";
+					row += "<dl class=\"discnt\">";
+					row += "<dt></dt>";
+					row += "<dd>";
+					row += "<strong class=\"tag_code\">"+list[i].tagID+"("+list[i].gate1+":"+list[i].signal1+","+list[i].gate2+":"+list[i].signal2+","+list[i].gate3+":"+list[i].signal3+")</strong>";
+					row += "<div class=\"tag_mng_btns\">";
+					row += "<a class=\"del\" id='delMapping"+i+"' data-code='"+list[i].tagCode+"' href=\"javascript:;\">" + erase + "</a>";
+					row += "</div>";
+					row += "</dd>";
+					row += "</dl>";
 
 					$("#data").append(row);
 					$("#data").on("click","#delMapping"+i, function(e){
-
-						console.log("tagMapping Delete Call");
-						if(confirm("선택한 항목을 삭제하시겠습니까?")) {
-
+						if(confirm(checkDelete)) {
 							var tagCode = $(this).data("code");
-
 							var sendData= {
 								"arrId":tagCode
 							};
@@ -135,27 +125,21 @@ $(document).ready(function () {
 								dataType:'json',
 								data: JSON.stringify(sendData),
 								success		: function(data){
-									console.log(data);
-
-									alert('성공적으로 삭제하였습니다.');
+									alert(deleteSuccess);
 									location.reload();
-
 								},
 								error	: function(request,status,error){
 									console.log(error);
-									alert("조회중 오류가 발생하였습니다.");
+									alert(commonError);
 								}
 							});
-
 						}
 					});
-
 				}
-
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 
@@ -173,12 +157,10 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
 				list = data.list;
-				console.log(data);
 				$("#cateL").empty();
 
-				var option = $("<option value='0'>----선택----</option>");
+				var option = $("<option value='0'>" + defaultSelect + "</option>");
 				$("#cateL").append(option);
 				for(var i=0;i<list.length;i++){
 					if(list[i].cateLCode == cateLCode){
@@ -199,7 +181,7 @@ $(document).ready(function () {
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 
@@ -215,12 +197,10 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
 				list = data.list;
-				console.log(data);
 				$("#cateM").empty();
 
-				var option = $("<option value='0'>----선택----</option>");
+				var option = $("<option value='0'>" + defaultSelect + "</option>");
 				$("#cateM").append(option);
 				for(var i=0;i<list.length;i++){
 					if(list[i].cateMCode == cateMCode) {
@@ -240,7 +220,7 @@ $(document).ready(function () {
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 
@@ -256,12 +236,10 @@ $(document).ready(function () {
 			dataType:'json',
 			data: JSON.stringify(sendData),
 			success		: function(data){
-
 				list = data.list;
-				console.log(data);
 				$("#cateS").empty();
 
-				var option = $("<option value='0'>----선택----</option>");
+				var option = $("<option value='0'>" + defaultSelect + "</option>");
 				$("#cateS").append(option);
 				for(var i=0;i<list.length;i++){
 					if(list[i].cateSCode == cateSCode) {
@@ -283,23 +261,20 @@ $(document).ready(function () {
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 
 	};
 
-
 	$('#cancel').click(function(){
 		location.href='/productList';
-
 	});
-
 
 	$('#submit').click(function(){
 		$("#frm").submit();
-
 	});
+
 	$.validator.setDefaults({
 		onkeyup: false,
 		onclick: false,
@@ -310,6 +285,7 @@ $(document).ready(function () {
 			}
 		}
 	});
+
 	$("#frm").validate({
 		rules: {
 			productName: {
@@ -321,10 +297,10 @@ $(document).ready(function () {
 		},
 		messages: {
 			productName: {
-				required: '상품명을 입력해주세요.'
+				required: enterProductName
 			},
 			price: {
-				required: '가격을 입력해주세요.'
+				required: enterPrice
 			}
 		},
 		submitHandler: function () {
@@ -336,15 +312,62 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/productList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}
 	});
-
 });
+
+
+var getProductList = function(page){
+	var sendData= {
+		"page":1,
+		"pageSize" : 10000000
+	}
+
+	if($("#cateL option:selected").val() != undefined){
+		sendData.cateL = $("#cateL option:selected").val();
+	}
+
+	if($("#cateM option:selected").val() != undefined){
+		sendData.cateM = $("#cateM option:selected").val();
+	}
+
+	if($("#cateS option:selected").val() != undefined){
+		sendData.cateS = $("#cateS option:selected").val();
+	}
+
+	$.ajax({
+		url			: "/getProductList",
+		type		: "post",
+		contentType: 'application/json',
+		dataType:'json',
+		data: JSON.stringify(sendData),
+		success		: function(data){
+			list = data.list;
+			$("#productCode").empty();
+
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
+			$("#productCode").append(option);
+			for(var i=0;i<list.length;i++){
+				if(list[i].productCode == productCode) {
+					var option = $("<option value='"+list[i].productCode+"' selected>"+list[i].productName+"</option>");
+				}else{
+					var option = $("<option value='"+list[i].productCode+"'>"+list[i].productName+"</option>");
+				}
+
+				$("#productCode").append(option);
+			}
+		},
+		error	: function(request,status,error){
+			console.log(error);
+			alert(commonError);
+		}
+	});
+};
 

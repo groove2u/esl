@@ -24,9 +24,6 @@ var getData = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(arg){
-
-			console.log(arg);
-
 			data = arg.data;
 
 			$("#cateLName").val(data.cateLName);
@@ -42,7 +39,7 @@ var getData = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
@@ -60,13 +57,10 @@ var goModify = function(productCode){
 	form.submit();
 };
 $(document).ready(function () {
-	console.log("onLoad");
-
 	$('#btnCancel').click(function(){
 		location.href='/cateLList';
 
 	});
-
 
 	$('#btnReg').click(function(){
 		$("#frm").submit();
@@ -90,7 +84,7 @@ $(document).ready(function () {
 		},
 		messages: {
 			cateLName: {
-				required: '명칭을 입력해주세요.'
+				required: enterName
 			}
 		},
 		submitHandler: function () {
@@ -102,11 +96,11 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/cateLList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}

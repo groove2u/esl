@@ -4,31 +4,46 @@
       layout:decorate="~{layouts/layout}">
 <div class="tbl_wrap" layout:fragment="content">
     <form id="frm" name="frm" method="post">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            let modify = /*[[ #{cateL.modify} ]]*/;
+            let select = /*[[ #{common.select} ]]*/;
+            let noDiscount = /*[[ #{product.nodiscount} ]]*/;
+            let commonError = /*[[ #{message.commonError} ]]*/;
+            let defaultSelect = /*[[ #{common.defaultSelect} ]]*/;
+            let enterProductName = /*[[ #{message.enterProductName} ]]*/;
+            let selectDelete = /*[[ #{message.selectDelete} ]]*/;
+            let cantdeleteTagProduct = /*[[ #{message.cantdeleteTagProduct} ]]*/;
+            let checkDelete = /*[[ #{message.checkDelete} ]]*/;
+            let deleteSuccess = /*[[ #{message.deleteSuccess} ]]*/;
 
+            /*]]*/
+        </script>
     <div class="tbl_filter_wrap">
         <div class="left">
-            <p class="sel_ttl">대분류선택</p>
+            <p class="sel_ttl" th:text="#{cate.selectCateL}"></p>
             <select class="cate_sel" id="cateL">
+                <option value="0" th:text="#{common.defaultSelect}"></option>
             </select>
-            <p class="sel_ttl">중분류선택</p>
+            <p class="sel_ttl" th:text="#{cate.selectCateM}"></p>
             <select class="cate_sel" id="cateM">
-                <option value="0">----선택----</option>
+                <option value="0" th:text="#{common.defaultSelect}"></option>
             </select>
-            <p class="sel_ttl">소분류전체</p>
+            <p class="sel_ttl" th:text="#{cate.selectCateS}"></p>
             <select class="cate_sel" id="cateS">
-                <option value="0">----선택----</option>
+                <option value="0" th:text="#{common.defaultSelect}"></option>
             </select>
-            <a class="btn_see_all" href="javascript:;" id="btnClear">전체보기</a>
+            <a class="btn_see_all" href="javascript:;" id="btnClear" th:text="#{common.selectAll}"></a>
         </div>
         <div class="right">
             <div class="prod_sub_serach">
-                <input id="productName" name=="productName" placeholder="상품명검색" type="text">
-                <input id="btnSearch" name=="btnSearch" type="submit" value="검색">
+                <input id="productName" name=="productName" th:placeholder="#{common.searchProduct}" type="text">
+                <input id="btnSearch" name=="btnSearch" type="submit" th:value="#{common.search}">
             </div>
             <select class="num_sel" id="pageSize">
-                <option value="10">10개</option>
-                <option value="20">20개</option>
-                <option value="50">50개</option>
+                <option value="10" th:text="#{common.10ea}"></option>
+                <option value="20" th:text="#{common.20ea}"></option>
+                <option value="50" th:text="#{common.50ea}"></option>
             </select>
         </div>
     </div>
@@ -50,18 +65,18 @@
             <th>
                 <p class="tbl_chk">
                     <input id="chkAll" name="chkAll" type="checkbox">
-                    <label for="chkAll">전체선택</label>
+                    <label for="chkAll" th:text="#{cateL.chkAll}"></label>
                 </p>
             </th>
             <th>no</th>
-            <th>상품명(태그수)</th>
-            <th>상품설명</th>
-            <th>할인율</th>
-            <th>할인기간</th>
-            <th>묶음할인</th>
-            <th>가격</th>
-            <th>등록일</th>
-            <th>상태변경</th>
+            <th th:text="#{product.nameTag}"></th>
+            <th th:text="#{cateL.desc}"></th>
+            <th th:text="#{cateL.discount}"></th>
+            <th th:text="#{cateL.discountPeriod}"></th>
+            <th th:text="#{product.bundle}"></th>
+            <th th:text="#{product.price}"></th>
+            <th th:text="#{cateL.regdate}"></th>
+            <th th:text="#{cateL.status}"></th>
         </tr>
         </thead>
         <tbody id="data">
@@ -69,14 +84,14 @@
     </table>
     <!-- pager -->
     <div class="tbl_bottom">
-        <a class="btn_del" href="javascript:;" id="btnDel">삭제</a>
+        <a class="btn_del" href="javascript:;" id="btnDel" th:text="#{cateL.delete}"></a>
         <div class="tbl_pager">
-            <a class="btn_prev" id="pageFirst" href="javascript:;">앞으로</a>
+            <a class="btn_prev" id="pageFirst" href="javascript:;" th:text="#{common.forward}"></a>
             <ol id="paging">
             </ol>
-            <a class="btn_next"  id="pageLast" href="javascript:;">뒤로</a>
+            <a class="btn_next"  id="pageLast" href="javascript:;" th:text="#{common.backward}"></a>
         </div>
-        <a class="btn_reg" href="javascript:;">등록</a>
+<!--        <a class="btn_reg" href="javascript:;" id="btnReg" th:text="#{cateL.regist}"></a>-->
     </div>
     <!-- pager end -->
     <script type="text/javascript" src="/js/productList.js"></script>

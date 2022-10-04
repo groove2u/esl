@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @SpringBootApplication
@@ -18,8 +19,7 @@ public class EslApplication {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
-        // 아래 값을 수정하여 언어 결정
-        sessionLocaleResolver.setDefaultLocale(Locale.KOREA);
+//        sessionLocaleResolver.setDefaultLocale(Locale.KOREA);
         return sessionLocaleResolver;
     }
 }

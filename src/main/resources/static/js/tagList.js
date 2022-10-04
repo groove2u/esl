@@ -27,7 +27,7 @@ $(document).ready(function () {
 				list = data.list;
 				$("#gatewayCode").empty();
 
-				var option = $("<option value='0'>----선택----</option>");
+				var option = $("<option value='0'>" + defaultSelect + "</option>");
 				$("#gatewayCode").append(option);
 
 				let curGatewayCode = $("#curGatewayCode").val();
@@ -44,13 +44,11 @@ $(document).ready(function () {
 				$("#gatewayCode").on( "change", function() {
 					$("#curGatewayCode").val($("#gatewayCode option:selected").val());
 					$("#frm").submit();
-					//getList(1);
-					//getTagCount();
 				});
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 
@@ -102,7 +100,7 @@ $(document).ready(function () {
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 	};
@@ -145,17 +143,17 @@ $(document).ready(function () {
 
 				for(var i=0;i<list.length;i++){
 					var row="";
-					row += "  <tr>";
-					row += "      <td>";
-					row += "          <p class=\"tbl_chk\">";
-					row +="                    <input id=\"chk"+i+"\" name=\"chk[]\" type=\"checkbox\" value='"+list[i].tagCode+"'>				 ";
-					row +="                        <label for=\"chk"+i+"\">선택</label>							";
-					row += "          </p>";
-					row += "      </td>";
-					row += "      <td>"+list[i].productName+"</td>";
-					row += "      <td>"+list[i].cateSName+"</td>";
-					row += "      <td>"+list[i].tagID+"</td>";
-					row += "      <td class=\"blue\">"+list[i].gatewayID+"</td>";
+					row += "<tr>";
+					row += "<td>";
+					row += "<p class=\"tbl_chk\">";
+					row += "<input id=\"chk"+i+"\" name=\"chk[]\" type=\"checkbox\" value='"+list[i].tagCode+"'>";
+					row += "<label for=\"chk"+i+"\">" + select + "</label>";
+					row += "</p>";
+					row += "</td>";
+					row += "<td>"+list[i].productName+"</td>";
+					row += "<td>"+list[i].cateSName+"</td>";
+					row += "<td>"+list[i].tagID+"</td>";
+					row += "<td class=\"blue\">"+list[i].gatewayID+"</td>";
 
 					if(eval(list[i].batteryStat) <= data.stdTagStat[0].battery) {
 						row += "      <td><p class=\"regi_stat red\"><strong>"+list[i].batteryStat+"</strong>%</p></td>";
@@ -164,9 +162,9 @@ $(document).ready(function () {
 					}
 
 					if(list[i].connectStat == 'Y'){
-						row += "      <td><p class=\"regi_stat green\">정상연결</p></td>";
+						row += "      <td><p class=\"regi_stat green\">" + connect + "</p></td>";
 					}else{
-						row += "      <td><p class=\"regi_stat red\">미연결</p></td>";
+						row += "      <td><p class=\"regi_stat red\">" + disconnect + "</p></td>";
 					}
 
 					if(eval(list[i].signalStat) <= data.stdTagStat[0].signal) {
@@ -176,21 +174,20 @@ $(document).ready(function () {
 					}
 
 					if(list[i].isCall == "Y"){
-						row += "      <td><i class=\"use_stat yes \" data-code='"+ list[i].tagCode+"|N'>사용</i></td>";
+						row += "      <td><i class=\"use_stat yes \" data-code='"+ list[i].tagCode+"|N'>" + use + "</i></td>";
 					}else{
-						row += "      <td><i class=\"use_stat no \" data-code='"+ list[i].tagCode+"|Y'>사용</i></td>";
+						row += "      <td><i class=\"use_stat no \" data-code='"+ list[i].tagCode+"|Y'>" + use + "</i></td>";
 					}
 
 
 					if(list[i].productPair == 'Y'){
-						row += "      <td><i class=\"use_stat yes\">미사용</i></td>";
+						row += "      <td><i class=\"use_stat yes\">" + unuse + "</i></td>";
 					}else{
-						row += "      <td><i class=\"use_stat no\">미사용</i></td>";
+						row += "      <td><i class=\"use_stat no\">" + unuse + "</i></td>";
 					}
 
 					row += "      <td>"+list[i].regdate+"</td>";
-					row +="       <td><a class=\"tbl_squr_btn\" data-code='"+list[i].tagCode+"' href=\"javascript:;\">수정</a></td>		";
-
+					row += "       <td><a class=\"tbl_squr_btn\" data-code='"+list[i].tagCode+"' href=\"javascript:;\">" + modify + "</a></td>		";
 					row += "  </tr>";
 
 					$("#data").append(row);
@@ -225,7 +222,7 @@ $(document).ready(function () {
 			},
 			error	: function(request,status,error){
 				console.log(error);
-				alert("조회중 오류가 발생하였습니다.");
+				alert(commonError);
 			}
 		});
 	};
@@ -281,7 +278,7 @@ $(document).ready(function () {
 			form.append(gatewayCode);
 			form.submit();
 		}else{
-			alert('등록을 원하시는 게이트웨이를 선택해주세요');
+			alert(selectGateway);
 		}
 	});
 
@@ -294,7 +291,7 @@ $(document).ready(function () {
 		});
 
 		if( chkArray.length < 1 ){
-			alert("삭제할 항목을 선택해주세요.");
+			alert(selectDelete);
 			return;
 		} else {
 			var tagMapping = false;
@@ -309,7 +306,7 @@ $(document).ready(function () {
 				}
 			}
 
-			if(confirm("선택한 항목을 삭제하시겠습니까?")) {
+			if(confirm(checkDelete)) {
 				var str = chkArray.join(",");
 				var sendData= {
 					"arrId":str
@@ -322,12 +319,12 @@ $(document).ready(function () {
 					dataType:'json',
 					data: JSON.stringify(sendData),
 					success		: function(data){
-						alert('성공적으로 삭제하였습니다.');
+						alert(deleteSuccess);
 						location.reload();
 					},
 					error	: function(request,status,error){
 						console.log(error);
-						alert("조회중 오류가 발생하였습니다.");
+						alert(commonError);
 					}
 				});
 			}

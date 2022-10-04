@@ -97,7 +97,7 @@ public class ProductAjaxController {
         PageHelper.startPage(param.getInt("page"), param.getInt("pageSize"));
 
 
-        logger.debug("데이터 : {}",param);
+        logger.debug("data : {}",param);
         try {
             list = productService.getProductList(param);
             returnBox.put("list", list);

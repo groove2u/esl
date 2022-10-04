@@ -10,14 +10,14 @@ jQuery.fn.serializeObject = function() {
 		}
 	}catch(e) {
 		alert(e.message);
-	}finally {}
+	}finally {
+	}
 	return obj;
 }
 
-
 var getCateL = function(){
-	var sendData= {
-	};
+	var sendData= {};
+
 	$.ajax({
 		url			: "/getCateLList",
 		type		: "post",
@@ -25,16 +25,12 @@ var getCateL = function(){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
 			list = data.list;
-			console.log(data);
 			$("#cateL").empty();
 
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateL").append(option);
 			for(var i=0;i<list.length;i++){
-
-				//console.log(eval($("#cateLCode").val()) +","+ list[i].cateLCode);
 				if(eval($("#cateLCode").val()) == list[i].cateLCode){
 					var option = $("<option value='"+list[i].cateLCode+"' selected>"+list[i].cateLName+"</option>");
 				}else{
@@ -47,54 +43,48 @@ var getCateL = function(){
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
 };
 
-
 var getCateM = function(){
 	var sendData= {
-		"cateLCode":$("#cateL option:selected").val()
+		"cateLCode": $("#cateL option:selected").val()
 	};
 	$.ajax({
-		url			: "/getCateMList",
-		type		: "post",
-		contentType: 'application/json',
-		dataType:'json',
-		data: JSON.stringify(sendData),
-		success		: function(data){
-
+		url : "/getCateMList",
+		type : "post",
+		contentType : 'application/json',
+		dataType :'json',
+		data : JSON.stringify(sendData),
+		success : function(data){
 			list = data.list;
-			console.log(data);
 			$("#cateM").empty();
-
-			var option = $("<option value='0'>----선택----</option>");
+			var option = $("<option value='0'>" + defaultSelect + "</option>");
 			$("#cateM").append(option);
-			for(var i=0;i<list.length;i++){
 
-				if(eval($("#cateMCode").val()) == list[i].cateMCode){
+			for(var i=0; i<list.length; i++) {
+				if(eval($("#cateMCode").val()) == list[i].cateMCode) {
 					var option = $("<option value='"+list[i].cateMCode+"' selected>"+list[i].cateMName+"</option>");
-				}else{
+				} else {
 					var option = $("<option value='"+list[i].cateMCode+"'>"+list[i].cateMName+"</option>");
 				}
 
 				$("#cateM").append(option);
 			}
 			$("#cateM").on( "change", function() {
-
 			});
 		},
-		error	: function(request,status,error){
+		error	: function(request,status,error) {
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
-
 };
-var goModify = function(productCode){
-//	alert(productCode);
+
+var goModify = function(productCode) {
 	var form = $('<form></form>');
 	form.attr('action', "/productView");
 	form.attr('method', 'post');
@@ -103,19 +93,17 @@ var goModify = function(productCode){
 	form.append(productCode);
 	form.submit();
 };
+
 $(document).ready(function () {
-	console.log("onLoad");
 	getCateL();
 	$('#btnCancel').click(function(){
 		location.href='/cateSList';
-
 	});
-
 
 	$('#btnReg').click(function(){
 		$("#frm").submit();
-
 	});
+
 	$.validator.setDefaults({
 		onkeyup: false,
 		onclick: false,
@@ -126,29 +114,31 @@ $(document).ready(function () {
 			}
 		}
 	});
+
 	$("#frm").validate({
 		rules: {
 			cateMName: {
 				required: true,
 			}
 		},
-
 		messages: {
 			cateMName: {
-				required: '명칭을 입력해주세요.'
+				required: enterName
 			}
 		},
 		submitHandler: function () {
+			if(eval($("#cateL").val()) == 0 ) {
+				alert(selectLargeCategory);
+				return false;
+			}
 
-			if(eval($("#cateL").val()) == 0 ){
-				alert('대분류를 선택해주세요.');
+			if(eval($("#cateM").val()) == 0 ) {
+				alert(selectMiddleCategory);
 				return false;
 			}
-			if(eval($("#cateM").val()) == 0 ){
-				alert('중분류를 선택해주세요.');
-				return false;
-			}
+
 			model_data = $("#frm").serializeObject();
+
 			$.ajax({
 				url: "/insertCateS",
 				type: "POST",
@@ -156,11 +146,11 @@ $(document).ready(function () {
 				dataType:'json',
 				data: JSON.stringify(model_data),
 				success: function () {
-					alert("등록완료하였습니다");
+					alert(registSuccess);
 					location.href='/cateSList'
 				},
 				error: function () {
-					alert("등록실패하였습니다.");
+					alert(registFail);
 				}
 			})
 		}

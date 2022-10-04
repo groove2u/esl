@@ -33,36 +33,30 @@ var getList = function(page){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-
-			console.log(data);
-
 			list = data.list;
 			$("#tagList").empty();
-			if(list.length == 0){
-				alert('검색된 태그가 없습니다.');
-			}else if (list.length > 10){
-				alert('검색된 태그가 너무많습니다.\n 10개 이하의 태그만 가능합니다.');
-			}else{
+			if(list.length == 0) {
+				alert(noTag);
+			} else if (list.length > 10) {
+				alert(tooManyTags);
+			} else {
 				for(var i=0;i<list.length;i++){
 					if(list[i].productName != undefined && list[i].productName != ""){
 						list[i].productName = " - " + list[i].productName;
 					}
-					var row="";
-					row +="         <li>";
-					row +="             <input id=\"chkTag"+i+"\" name=\"chkTag[]\" type=\"checkbox\" value='"+list[i].tagCode+"'>				 ";
-					row +="             <label for='chkTag"+i+"'>"+list[i].desc+" ("+list[i].tagID+")"+list[i].productName+"</label>";
-					row +="         </li>";
-
-
+					var row = "";
+					row += "<li>";
+					row += "<input id=\"chkTag"+i+"\" name=\"chkTag[]\" type=\"checkbox\" value='"+list[i].tagCode+"'>				 ";
+					row += "<label for='chkTag"+i+"'>"+list[i].desc+" ("+list[i].tagID+")"+list[i].productName+"</label>";
+					row += "</li>";
 
 					$("#tagList").append(row);
 				}
-
 			}
 		},
 		error	: function(request,status,error){
 			console.log(error);
-			alert("조회중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
@@ -72,20 +66,22 @@ $(document).ready(function () {
 	$('#btnClose').click(function(){
 		$("#tagReg").hide();
 	});
+
 	$('#btnTagList').click(function(){
 		var url = "/tagList";
 		window.open(url, "_blank");
 	});
+
 	$('#searchTag').click(function(){
 		var tagID = $("#tagID").val();
 		if(tagID ==""){
-			alert("검색할 태그코드를 입력해주세요");
-		}else{
+			alert(enterTagCode);
+		} else {
 			getList(1);
 		}
 	});
-	$('#btnRegTag').click(function(){
 
+	$('#btnRegTag').click(function() {
 		var chkArray = new Array();
 
 		$("input[name='chkTag[]']:checked").each(function() {
@@ -94,18 +90,15 @@ $(document).ready(function () {
 		});
 
 		if( chkArray.length < 1 ){
-			alert("등록할 항목을 선택해주세요.");
+			alert(selectItem);
 			return;
 		}else{
-			if(confirm("선택한 태그를 해당상품에 등록 하시겠습니까?")) {
-
-
+			if(confirm(checkRegistTag)) {
 				var str = chkArray.join(",");
 				var sendData= {
 					"productCode" : $("#productCode").val(),
 					"arrId":str
 				};
-				console.log("sendData="+sendData);
 
 				$.ajax({
 					url			: "/updateTagMapping",
@@ -114,24 +107,16 @@ $(document).ready(function () {
 					dataType:'json',
 					data: JSON.stringify(sendData),
 					success		: function(data){
-						console.log(data);
-
-						alert('성공적으로 등록하였습니다.');
+						alert(registSuccess);
 						location.reload();
-
 					},
 					error	: function(request,status,error){
 						console.log(error);
-						alert("조회중 오류가 발생하였습니다.");
+						alert(commonError);
 					}
 				});
-
 			}
 		}
-
-		console.log(chkArray);	// (2) ["A", "B"]
 	});
-
-
 });
 

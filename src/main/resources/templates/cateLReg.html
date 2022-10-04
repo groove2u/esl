@@ -3,6 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <div class="cate_regi_input" layout:fragment="content">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let enterName = /*[[ #{message.enterName} ]]*/;
+        let registSuccess = /*[[ #{message.registSuccess} ]]*/;
+        let registFail = /*[[ #{message.registFail} ]]*/;
+
+        /*]]*/
+    </script>
     <form method="post" action="/insertCateL" name="frm" id="frm">
         <dl>
             <dt  th:text="#{cateL.cateName}"></dt>
@@ -36,7 +44,7 @@
         </dl>
     <div class="cate_regi_btns">
         <a class="cancel" href="javascript:;" id="btnCancel" th:text="#{cateL.cancel}"></a>
-        <a class="regist" href="javascript:;" id="btnReg"  th:text="#{cateL.regist}">등록</a>
+        <a class="regist" href="javascript:;" id="btnReg"  th:text="#{cateL.regist}"></a>
     </div>
 </form>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>

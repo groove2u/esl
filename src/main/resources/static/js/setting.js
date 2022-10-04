@@ -12,12 +12,12 @@ var getData = function(){
 				$("#battery").val(data.battery);
 				$("#signal").val(data.signal);
 			} else {
-				alert("입력된 데이터가 없습니다.");
+				alert(noData);
 			}
 		},
 		error : function(request,status,error){
 			console.log(error);
-			alert("조회 중 오류가 발생하였습니다.");
+			alert(commonError);
 		}
 	});
 
@@ -52,12 +52,12 @@ $(document).ready(function () {
 		},
 		messages: {
 			battery: {
-				required: '배터리 값을 입력하세요.',
-				range: '배터리는 0이상 100이하의 숫자를 입력하세요.'
+				required: noData,
+				range: enterBatteryRange
 			},
 			signal: {
-				required: '신호세기 값을 입력하세요.',
-				range: '신호세기는 0이상 100이하의 숫자를 입력하세요.'
+				required: enterSignal,
+				range: enterSignalRange
 			}
 		},
 		submitHandler: function () {
@@ -70,14 +70,14 @@ $(document).ready(function () {
 				data: JSON.stringify(model_data),
 				success: function (arg) {
 					if(arg.status == 9999) {
-						alert("처리 실패 하였습니다.");
+						alert(processFail);
 					} else {
-						alert("등록 완료 하였습니다");
+						alert(registSuccess);
 					}
 					location.href='/setting'
 				},
 				error: function () {
-					alert("처리 실패 하였습니다.");
+					alert(processFail);
 				}
 			})
 		}

@@ -3,13 +3,28 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <div class="tbl_wrap" layout:fragment="content">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let modify = /*[[ #{cateL.modify} ]]*/;
+        let select = /*[[ #{common.select} ]]*/;
+        let connect = /*[[ #{gateway.connect} ]]*/;
+        let disconnect = /*[[ #{gateway.disconnect} ]]*/;
+        let registed = /*[[ #{gateway.registed} ]]*/;
+        let selectDelete = /*[[ #{message.selectDelete} ]]*/;
+        let cantDeleteGateway = /*[[ #{message.cantDeleteGateway} ]]*/;
+        let checkDelete = /*[[ #{message.checkDelete} ]]*/;
+        let deleteSuccess = /*[[ #{message.deleteSuccess} ]]*/;
+        let commonError = /*[[ #{message.commonError} ]]*/;
+
+        /*]]*/
+    </script>
     <form id="frm" name="frm" method="post">
         <div class="tbl_filter_wrap">
             <div class="right">
                 <select class="num_sel" id="pageSize">
-                    <option value="10">10개</option>
-                    <option value="20">20개</option>
-                    <option value="50">50개</option>
+                    <option value="10" th:text="#{common.10ea}"></option>
+                    <option value="20" th:text="#{common.20ea}"></option>
+                    <option value="50" th:text="#{common.50ea}"></option>
                 </select>
             </div>
         </div>
@@ -29,16 +44,16 @@
                 <th>
                     <p class="tbl_chk">
                         <input id="chkAll" name="" type="checkbox">
-                        <label for="chkAll">전체선택</label>
+                        <label for="chkAll" th:text="#{cateL.chkAll}"></label>
                     </p>
                 </th>
                 <th>no</th>
                 <th>ID</th>
-                <th>설명</th>
-                <th>등록상태</th>
-                <th>위치</th>
-                <th>등록일</th>
-                <th>상세보기</th>
+                <th th:text="#{cateL.desc}"></th>
+                <th th:text="#{gateway.status}"></th>
+                <th th:text="#{gateway.location}"></th>
+                <th th:text="#{cateL.regdate}"></th>
+                <th th:text="#{cateL.status}"></th>
             </tr>
             </thead>
             <tbody id="data">
@@ -46,19 +61,15 @@
         </table>
         <!-- pager -->
         <div class="tbl_bottom">
-            <a class="btn_del" href="javascript:;" id="btnDel">삭제</a>
+            <a class="btn_del" href="javascript:;" id="btnDel" th:text="#{cateL.delete}"></a>
             <div class="tbl_pager">
-                <a class="btn_prev" id="pageFirst" href="javascript:;">앞으로</a>
+                <a class="btn_prev" id="pageFirst" href="javascript:;" th:text="#{common.forward}"></a>
                 <ol id="paging">
                 </ol>
-                <a class="btn_next"  id="pageLast" href="javascript:;">뒤로</a>
+                <a class="btn_next"  id="pageLast" href="javascript:;" th:text="#{common.backward}"></a>
             </div>
-            <a class="btn_reg" href="javascript:;" id="btnReg">등록</a>
+            <a class="btn_reg" href="javascript:;" id="btnReg" th:text="#{cateL.regist}"></a>
         </div>
-
-
-
-
     <script type="text/javascript" src="/js/gatewayList.js"></script>
     </form>
 </div>

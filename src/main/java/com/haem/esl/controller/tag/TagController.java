@@ -4,6 +4,8 @@ import com.haem.esl.model.Box;
 import com.haem.esl.util.MapUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +15,16 @@ import java.util.Locale;
 
 @Controller
 public class TagController {
+    @Autowired
+    MessageSource messageSource;
+
     private Logger logger = LoggerFactory.getLogger(TagController.class);
 
     @RequestMapping(value = "/tagList")
     public String tagList(Locale locale, Model model, HttpServletRequest request){
 
         logger.debug("tagList");
-        model.addAttribute("title", "태그 목록");
+        model.addAttribute("title", messageSource.getMessage("tag.list", null, locale));
         Box box = MapUtil.getMap(request);
 
         box.forEach((key, value)->{
@@ -33,7 +38,7 @@ public class TagController {
 
         logger.debug("tagReg");
         Box box = MapUtil.getMap(request);
-        model.addAttribute("title", "태그 등록");
+        model.addAttribute("title", messageSource.getMessage("tag.regist", null, locale));
         model.addAttribute("gatewayCode", box.getString("gatewayCode"));
         return "tagReg";
     }
@@ -42,7 +47,7 @@ public class TagController {
 
         logger.debug("tagModify");
         Box box = MapUtil.getMap(request);
-        model.addAttribute("title", "태그 수정");
+        model.addAttribute("title", messageSource.getMessage("tag.modify", null, locale));
 
         box.forEach((key, value)->{
             model.addAttribute(key, value);
