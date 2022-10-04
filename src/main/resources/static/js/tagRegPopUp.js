@@ -33,7 +33,7 @@ var getList = function(page){
 		dataType:'json',
 		data: JSON.stringify(sendData),
 		success		: function(data){
-			list = data.list;
+			let list = data.list.list;
 			$("#tagList").empty();
 			if(list.length == 0) {
 				alert(noTag);
