@@ -17,9 +17,7 @@ var cateLCode;
 var cateMCode;
 var cateSCode;
 var productCode;
-var getList = function(page){
-
-
+var getList = function(page) {
 	var sendData= {
 		"page":1,
 		"pageSize" : 10000,

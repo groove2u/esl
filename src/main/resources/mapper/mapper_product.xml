@@ -1,118 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminMapper">
-
     <select id="getProductList" parameterType="box" resultType="box">
-
-
-        select a.productCode,
-        a.productName,
-        a.barcode,
-        a.imageCode,
-        a.qrCode,
-        a.price,
-        ifnull(a.discount,0) as discount,
-        a.productUrl,
-        ifnull(a.`desc`,'') as `desc`,
-        a.updateYN,
-        a.cateLCode,
-        a.cateMCode,
-        a.cateSCode,
-        DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate,
-        a.placeCode,
-        a.companyCode,
-        ifnull(DATE_FORMAT(A.saleStart, '%Y-%m-%d' ),'') AS saleStart,
-        ifnull(DATE_FORMAT(A.saleEnd, '%Y-%m-%d' ),'') AS saleEnd,
-        a.saleType,
-        ifnull(b.cnt,0) as cnt
-
+        select
+            a.productCode,
+            a.productName,
+            a.barcode,
+            a.imageCode,
+            a.qrCode,
+            a.price,
+            ifnull(a.discount,0) as discount,
+            a.productUrl,
+            ifnull(a.`desc`,'') as `desc`,
+            a.updateYN,
+            a.cateLCode,
+            a.cateMCode,
+            a.cateSCode,
+            DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate,
+            a.placeCode,
+            a.companyCode,
+            ifnull(DATE_FORMAT(A.saleStart, '%Y-%m-%d' ),'') AS saleStart,
+            ifnull(DATE_FORMAT(A.saleEnd, '%Y-%m-%d' ),'') AS saleEnd,
+            a.saleType,
+            ifnull(b.cnt,0) as cnt
         from tbl_product a
         left outer join (select productCode,count(*) as cnt  from tbl_product_mapping group by productCode) b on a.productCode = b.productCode
-
-
         where 1=1
-        <if test='cateL !=null and cateL != 0'>
-            and cateLCode = #{cateL}
-        </if>
-        <if test='cateM !=null and cateM != 0'>
-            and cateMCode = #{cateM}
-        </if>
-        <if test='cateS !=null and cateS != 0'>
-            and cateSCode = #{cateS}
-        </if>
-        <if test='productName !=null'>
-            and productName like '%' #{productName} '%'
-        </if>
+            <if test='cateL !=null and cateL != 0'>
+                and cateLCode = #{cateL}
+            </if>
+            <if test='cateM !=null and cateM != 0'>
+                and cateMCode = #{cateM}
+            </if>
+            <if test='cateS !=null and cateS != 0'>
+                and cateSCode = #{cateS}
+            </if>
+            <if test='productName !=null'>
+                and productName like '%' #{productName} '%'
+            </if>
 	</select>
-    <select id="getProductView" parameterType="box" resultType="box">
 
-        select a.productCode,
-               a.productName,
-               a.barcode,
-               a.imageCode,
-               a.qrCode,
-               a.price,
-               a.discount,
-               a.productUrl,
-               a.desc,
-               a.updateYN,
-               a.cateLCode,
-               b.cateLName,
-               c.cateMName,
-               d.cateSName,
-               a.cateMCode,
-               a.cateSCode,
-               DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate,
-               a.placeCode,
-               a.companyCode,
-               DATE_FORMAT(A.saleStart, '%Y-%m-%d' ) AS saleStart,
-               DATE_FORMAT(A.saleEnd, '%Y-%m-%d' ) AS saleEnd,
-               a.saleType,
-               a.position
-          from tbl_product a
-          inner join tbl_cateL b on a.cateLCode = b.cateLCode
-          inner join tbl_cateM c on a.cateMCode = c.cateMCode
-          inner join tbl_cateS d on a.cateSCode = d.cateSCode
-          where a.productCode = #{productCode}
+    <select id="getProductView" parameterType="box" resultType="box">
+        select
+            a.productCode,
+            a.productName,
+            a.barcode,
+            a.imageCode,
+            a.qrCode,
+            a.price,
+            a.discount,
+            a.productUrl,
+            a.desc,
+            a.updateYN,
+            a.cateLCode,
+            b.cateLName,
+            c.cateMName,
+            d.cateSName,
+            a.cateMCode,
+            a.cateSCode,
+            DATE_FORMAT(A.regdate, '%Y-%m-%d' ) AS regdate,
+            a.placeCode,
+            a.companyCode,
+            DATE_FORMAT(A.saleStart, '%Y-%m-%d' ) AS saleStart,
+            DATE_FORMAT(A.saleEnd, '%Y-%m-%d' ) AS saleEnd,
+            a.saleType,
+            a.position
+        from tbl_product a
+            inner join tbl_cateL b on a.cateLCode = b.cateLCode
+            inner join tbl_cateM c on a.cateMCode = c.cateMCode
+            inner join tbl_cateS d on a.cateSCode = d.cateSCode
+        where a.productCode = #{productCode}
 	</select>
+
     <select id="getProductTagList" parameterType="box" resultType="box">
         select b.* from tbl_product_mapping a
         inner join tbl_tag b on a.tagCode = b.tagCode
         where a.productCode = #{productCode}
 	</select>
+
     <update id="modifyProduct" parameterType="box">
         update tbl_product
-            set  productName = #{productName},
-        <if test="desc !=null and !desc.equals('')">
-        `desc`=#{desc},
-        </if>
-
-        <if test="price !=null and !price.equals('')">
-            price = #{price},
-        </if>
+        set
+            productName = #{productName},
+            <if test="cateL !=null and !cateL.equals('')">cateLCode = #{cateL},</if>
+            <if test="cateM !=null and !cateM.equals('')">cateMCode = #{cateM},</if>
+            <if test="cateS !=null and !cateS.equals('')">cateSCode = #{cateS},</if>
+            <if test="desc !=null and !desc.equals('')">`desc`=#{desc},</if>
+            <if test="price !=null and !price.equals('')">price = #{price},</if>
             discount = #{discount, jdbcType=DOUBLE},
             saleStart = #{saleStart, jdbcType=DATE},
             saleEnd = #{saleStart, jdbcType=DATE},
-        `position` = #{position, jdbcType=SMALLINT},
-        <if test="bundle !=null and !bundle.equals('')">
-            saleType = #{bundle}
-        </if>
-
+            `position` = #{position, jdbcType=SMALLINT},
+            <if test="bundle !=null and !bundle.equals('')">saleType = #{bundle}</if>
         WHERE productCode = #{productCode}
-
     </update>
+
     <update id="modifyProductMapping" parameterType="box">
-        update tbl_tag set productPair = 'N' where tagCode in(
-        select tagCode from tbl_product_mapping b where productCode =#{productCode})
+        update tbl_tag
+        set
+            productPair = 'N'
+        where tagCode in (select tagCode from tbl_product_mapping b where productCode =#{productCode})
     </update>
-    <delete id="deleteProduct" parameterType="box">
-        delete from tbl_product WHERE productCode = #{productCode}
 
+    <delete id="deleteProduct" parameterType="box">
+        delete from
+            tbl_product
+        WHERE productCode = #{productCode}
     </delete>
+
     <select id="getProductLocation" parameterType="box" resultType="box">
-        select * from tbl_product a
-                          inner join tbl_product_mapping b on a.productCode = b.productCode
-                          inner join tbl_tag c on b.tagCode = c.tagCode
+        select *
+        from tbl_product a
+            inner join tbl_product_mapping b on a.productCode = b.productCode
+            inner join tbl_tag c on b.tagCode = c.tagCode
         where a.productCode = #{productCode} and gate1 is not null
     </select>
 </mapper>
