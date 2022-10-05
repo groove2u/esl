@@ -100,12 +100,31 @@ $(document).ready(function () {
 
 				for(var i=0;i<list.length;i++){
 					var row = "";
+					let count = 0;
 					row += "<dl class=\"discnt\">";
 					row += "<dt></dt>";
 					row += "<dd>";
-					row += "<strong class=\"tag_code\">"+list[i].tagID+"("+list[i].gate1+":"+list[i].signal1+","+list[i].gate2+":"+list[i].signal2+","+list[i].gate3+":"+list[i].signal3+")</strong>";
-					row += "<div class=\"tag_mng_btns\">";
-					row += "<a class=\"del\" id='delMapping"+i+"' data-code='"+list[i].tagCode+"' href=\"javascript:;\">" + erase + "</a>";
+					row += "<strong class=\"tag_code\">";
+					row += list[i].tagID;
+					row += " (";
+					if(list[i].gate1 !== undefined) {
+						row += list[i].gate1 + ":" + list[i].signal1 + ", ";
+						count += 1;
+					}
+					if(list[i].gate2 !== undefined) {
+						row += list[i].gate2 + ":" + list[i].signal2 + ", " ;
+						count += 1;
+					}
+					if(list[i].gate3 !== undefined) {
+						row += list[i].gate3 + ":" + list[i].signal3;
+						count += 1;
+					}
+					if(count == 0) {
+						row += noSignal;
+					}
+					row += ")";
+					row += "</strong><div class=\"tag_mng_btns\">";
+					row += "<a class=\"del\" id='delMapping" + i + "' data-code='" + list[i].tagCode + "' href=\"javascript:;\">" + erase + "</a>";
 					row += "</div>";
 					row += "</dd>";
 					row += "</dl>";
